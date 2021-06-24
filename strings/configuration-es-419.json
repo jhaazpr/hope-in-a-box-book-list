@@ -1,0 +1,33 @@
+{
+  "template" : {
+    "Primary Navigation" : "Navegación principal",
+    "Secondary Navigation" : "Navegación Secundaria",
+    "Footer Navigation" : "Navegación de pies de página",
+    "Default" : "Predeterminado"
+  },
+  "album" : {
+    "Album" : "Álbum",
+    "New Album" : "Nuevo álbum",
+    "Add Track" : "Añade una Pista"
+  },
+  "blog" : {
+    "Blog" : "Blog",
+    "New Blog" : "Nuevo blog",
+    "Add Post" : "Añade una Entrada"
+  },
+  "events" : {
+    "Events" : "Eventos",
+    "New Events" : "Nuevos eventos",
+    "Add Event" : "Añade un Evento"
+  },
+  "folders" : {
+    "Folder" : "Carpeta",
+    "New Folder" : "Nueva carpeta",
+    "Add Page" : "Añade una Página"
+  },
+  "index" : {
+    "Index" : "Índice",
+    "New Index" : "Nuevo índice",
+    "Add Section" : "Añade una sección"
+  }
+}
