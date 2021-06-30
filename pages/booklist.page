@@ -1,3 +1,18 @@
+<!--
+    FIXME: for now, do styling inline with HTML. However, this is not a good
+    long term solution because we're inside the body tag. Once we're good on
+    styling, move the <style> tag's contents to a dedicated spreadsheet and
+    link it using Squarespace's <head> code injection.
+-->
+<style>
+.book-cover {
+    height: 200px;
+    width: 100px;
+}
+</style>
+
 <div>
     Hello world!
 </div>
+<img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story"/>
+
