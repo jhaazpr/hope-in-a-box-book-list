@@ -10,6 +10,10 @@
     width: 100px;
 }
 </style>
+<!--
+    TODO: enabling script in body messes with the page load, debug later
+    <script src="../scripts/inflate-booklist.js"/>
+-->
 
 <div>
     Hello world!
