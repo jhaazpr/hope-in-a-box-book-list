@@ -1,1 +1,3 @@
-<div>hi</div>
+{
+    "bookTitles": [ "bookA", "bookB" ]
+}
