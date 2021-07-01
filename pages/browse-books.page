@@ -1,0 +1,205 @@
+<!--
+    FIXME: for now, do styling inline with HTML. However, this is not a good
+    long term solution because we're inside the body tag. Once we're good on
+    styling, move the <style> tag's contents to a dedicated spreadsheet and
+    link it using Squarespace's <head> code injection.
+-->
+<style>
+.container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+}
+
+.menu-pane {
+    float: left;
+    width: 20%;
+    height: 100%;
+}
+
+.filter-section-top {
+    font-variant: small-caps;
+    font-weight: normal;
+    color: #aaaaaa;
+    margin-bottom: 10px;
+}
+
+.results-pane {
+    float: right;
+    width: 80%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.grid-container {
+    width: 90%;
+    margin: auto;
+}
+
+.grid-item {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+/* TODO: fix hard-coded values */
+.stripe {
+    background-color: #1b1bf7;
+    height: 12px;
+    width: 3px;
+    display: inline-block;
+    transform: translateY(2.5px);
+    margin-right: 2.5px;
+}
+
+.rl-text {
+    display: inline-block;
+}
+
+.item-reading-level {
+    font-size: 12px;
+    font-variant: small-caps;
+    font-weight: lighter;
+}
+
+.item-title {
+    color: #222222;
+    font-weight: bold;
+}
+
+.item-author {
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.book-cover {
+    max-width: 150px;
+}
+</style>
+<!--
+    TODO: enabling script in body messes with the page load, debug later
+    <script src="../scripts/inflate-booklist.js"/>
+-->
+<div class="container">
+    <div class="menu-pane">
+        <input name="search" class="filter-search" type="text" placeholder="Search"/>
+        <div class="curriculum-note">
+            Curriculum is available
+        </div>
+        <div class="filter-tag-pane">
+            <div class="tag-pane-top">
+                Filters...
+            </div>
+        </div>
+        <div class="filters-reading-level">
+            <div class="filter-section-top">
+                reading level
+            </div>
+        </div>
+        <div class="filters-representation">
+            <div class="filter-section-top">
+                representation
+            </div>
+        </div>
+        <div class="filters-themes">
+            <div class="filter-section-top">
+                themes
+            </div>
+        </div>
+        <div class="filters-format">
+            <div class="filter-section-top">
+                format
+            </div>
+        </div>
+        <div class="filters-included-in">
+            <div class="filter-section-top">
+                included in ...
+            </div>
+        </div>
+        <div class="filters-curriculum-available">
+            <div class="filter-section-top">
+                curriculum available
+            </div>
+        </div>
+    </div>
+    <div class="results-pane">
+        <div class="grid-container">
+            <div class="grid-item">
+                <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
+                <div class="item-reading-level">
+                    <div class="stripe"></div>
+                    <div class="rl-text">
+                        early high school
+                    </div>
+                </div>
+                <div class="item-title">
+                    Like a Love Story
+                </div>
+                <div class="item-author">
+                    Abdi Nazemian
+                </div>
+            </div>
+            <div class="grid-item">
+                <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
+                <div class="item-reading-level">
+                    <div class="stripe"></div>
+                    <div class="rl-text">
+                        early high school
+                    </div>
+                </div>
+                <div class="item-title">
+                    Like a Love Story
+                </div>
+                <div class="item-author">
+                    Abdi Nazemian
+                </div>
+            </div>
+            <div class="grid-item">
+                <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
+                <div class="item-reading-level">
+                    <div class="stripe"></div>
+                    <div class="rl-text">
+                        early high school
+                    </div>
+                </div>
+                <div class="item-title">
+                    Like a Love Story
+                </div>
+                <div class="item-author">
+                    Abdi Nazemian
+                </div>
+            </div>
+            <div class="grid-item">
+                <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
+                <div class="item-reading-level">
+                    <div class="stripe"></div>
+                    <div class="rl-text">
+                        early high school
+                    </div>
+                </div>
+                <div class="item-title">
+                    Like a Love Story
+                </div>
+                <div class="item-author">
+                    Abdi Nazemian
+                </div>
+            </div>
+            <div class="grid-item">
+                <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
+                <div class="item-reading-level">
+                    <div class="stripe"></div>
+                    <div class="rl-text">
+                        early high school
+                    </div>
+                </div>
+                <div class="item-title">
+                    Like a Love Story
+                </div>
+                <div class="item-author">
+                    Abdi Nazemian
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
