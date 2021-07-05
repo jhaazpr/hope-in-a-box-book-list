@@ -19,6 +19,71 @@
     height: 100%;
 }
 
+.filter-search {
+    height: 40px;
+    padding-left: 10%;
+    width: 80%;
+    margin-bottom: 10px;
+}
+
+.heart-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.x-icon {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.curriculum-note > .heart-icon {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.curriculum-note > .light-text {
+    display: inline-block;
+}
+
+.light-text {
+    color: #aaaaaa;
+    font-size: 13px;
+    font-weight: lighter;
+}
+
+.filter-clear-all-row {
+    height: 30px;
+}
+
+.filter-tag-pane {
+    overflow: auto;
+}
+
+.filter-tag {
+    font-size: 12px;
+    background-color: #eee;
+    padding: 0px 10px 0px 10px;
+    font-weight: lighter;
+    color: #000;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    float: left;
+    display: inline-block;
+}
+
+.tag-text {
+    display: inline-block;
+}
+
 .filter-section-top {
     font-variant: small-caps;
     font-weight: normal;
@@ -82,11 +147,35 @@
     <div class="menu-pane">
         <input name="search" class="filter-search" type="text" placeholder="Search"/>
         <div class="curriculum-note">
-            Curriculum is available
+            <img class="heart-icon" src="../assets/heart-icon.png" alt="heart icon">
+            <div class="light-text">Curriculum is available</div>
         </div>
         <div class="filter-tag-pane">
-            <div class="tag-pane-top">
-                Filters...
+            <div class="filter-clear-all-row">
+                <div class="light-text float-left">
+                    Filters...
+                </div>
+                <div class="light-text float-right">
+                    Clear all (0)
+                </div>
+            </div>
+            <div class="filter-list">
+                <div class="filter-tag">
+                    <img class="x-icon" src="../assets/x-icon.png" alt="Delete tag icon">
+                    <div class="tag-text">Gay</div>
+                </div>
+                <div class="filter-tag">
+                    <img class="x-icon" src="../assets/x-icon.png" alt="Delete tag icon">
+                    <div class="tag-text">Lesbian</div>
+                </div>
+                <div class="filter-tag">
+                    <img class="x-icon" src="../assets/x-icon.png" alt="Delete tag icon">
+                    <div class="tag-text">Curriculum is available</div>
+                </div>
+                <div class="filter-tag">
+                    <img class="x-icon" src="../assets/x-icon.png" alt="Delete tag icon">
+                    <div class="tag-text">Black, Caribbean &amp; African Diaspora</div>
+                </div>
             </div>
         </div>
         <div class="filters-reading-level">
