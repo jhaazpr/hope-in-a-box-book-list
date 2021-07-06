@@ -159,7 +159,54 @@
 .book-cover {
     max-width: 150px;
 }
+
+.hidden {
+    display: none;
+}
+
+#modal-container {
+    position: fixed;
+    z-index: 1002;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+#modal-content {
+    background-color: #ddd;
+    padding: 20px;
+    font-size: 12px;
+    border: 1px solid white;
+    width: 70%;
+    margin: 5% auto 0 auto;
+}
+
 </style>
+<div id="modal-container" class="hidden">
+    <div id="modal-content">
+        <div class="m-cover-col">
+            <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
+        </div>
+        <div class="m-book-info-col">
+            <div class="m-title">Hurricane Child</div>
+            <div class="m-header-author">Author</div>
+            <div class="m-author">Kacen Callender</div>
+            <div class="m-header-tags">Tags</div>
+            <div class="m-tags-pane"></div>
+            <div class="m-header-synopsis">Synopsis</div>
+            <div class="m-synopsis">
+            Born during a storm, Caroline Murphy, a 12-year-old black girl, is convinced that she has been cursed with bad luck.
+            </div>
+            <div class="m-header-lesson-plans">Click here for lesson plans</div>
+            <div class="m-lesson-plans"></div>
+            <div class="m-header-buy-book">Click here to buy this book</div>
+            <div class="m-buy-book">Hope in a Box supports LGBTQ-friendly independent bookstores. Follow the link above to purchase this book from Northshire Bookstore.</div>
+        </div>
+    </div>
+</div>
+
 <div class="container">
     <div class="menu-pane">
         <input name="search" class="filter-search" type="text" placeholder="Search"/>
