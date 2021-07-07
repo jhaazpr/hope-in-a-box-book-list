@@ -175,34 +175,82 @@
 }
 
 #modal-content {
-    background-color: #ddd;
-    padding: 20px;
+    background-color: #eee;
+    padding: 50px;
     font-size: 12px;
     border: 1px solid white;
+    height: 70%;
     width: 70%;
     margin: 5% auto 0 auto;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+}
+
+.m-close-row {
+    margin-bottom: 10px;
+}
+
+.m-cols {
+    display: flex;
+    flex-direction: row;
+}
+
+.m-close-icon {
+    float: right;
+    height: 20px;
+    width: 20px;
+}
+
+.m-cover-col {
+    margin-right: 50px;
+}
+
+.m-text {
+    font-weight: lighter;
+    margin-bottom: 10px;
+}
+
+.m-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 15px;
+}
+
+.m-header {
+    font-size: 16px;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
 </style>
-<div id="modal-container" class="hidden">
+<div id="modal-container" class="">
     <div id="modal-content">
-        <div class="m-cover-col">
-            <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
+        <div class="m-close-row">
+            <img class="m-close-icon" src="../assets/x-icon.png" alt="lose modal">
         </div>
-        <div class="m-book-info-col">
-            <div class="m-title">Hurricane Child</div>
-            <div class="m-header-author">Author</div>
-            <div class="m-author">Kacen Callender</div>
-            <div class="m-header-tags">Tags</div>
-            <div class="m-tags-pane"></div>
-            <div class="m-header-synopsis">Synopsis</div>
-            <div class="m-synopsis">
-            Born during a storm, Caroline Murphy, a 12-year-old black girl, is convinced that she has been cursed with bad luck.
+        <div class="m-cols">
+            <div class="m-cover-col">
+                <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
             </div>
-            <div class="m-header-lesson-plans">Click here for lesson plans</div>
-            <div class="m-lesson-plans"></div>
-            <div class="m-header-buy-book">Click here to buy this book</div>
-            <div class="m-buy-book">Hope in a Box supports LGBTQ-friendly independent bookstores. Follow the link above to purchase this book from Northshire Bookstore.</div>
+            <div class="m-book-info-col">
+                <div class="m-title">Hurricane Child</div>
+                <div class="m-header">Author</div>
+                <div class="m-author m-text">Kacen Callender</div>
+                <div class="m-header">Tags</div>
+                <div class="m-tags-pane"></div>
+                <div class="m-header">Synopsis</div>
+                <div class="m-synopsis m-text">
+                Born during a storm, Caroline Murphy, a 12-year-old black girl, is convinced that she has been cursed with bad luck.<br/><br/>
+    The old ladies around her way say this is the fate of any child born during a hurricane. Recent events in her life seem to confirm this. Feeling unwanted by everyone, especially since the abrupt departure of her mom, Caroline ...
+                </div>
+                <div class="m-header m-header-lesson-plans">Click here for lesson plans</div>
+                <div class="m-lesson-plans m-text">Curriculum is currently available for this title. Hope in a Box has developed the nation’s largest library of LGBTQ-inclusive curriculum. Our guides are written by and for educators, tied to Common Core State Standards, and adapted for in-person and virtual learning. We want your feedback -- let us know which books to cover next!</div>
+                <div class="m-header m-header-buy-book">Click here to buy this book</div>
+                <div class="m-buy-book m-text">Hope in a Box supports LGBTQ-friendly independent bookstores. Follow the link above to purchase this book from Northshire Bookstore.</div>
+            </div>
         </div>
     </div>
 </div>
