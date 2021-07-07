@@ -176,7 +176,7 @@
 
 #modal-content {
     background-color: #eee;
-    padding: 50px;
+    padding: 20px 50px 50px 50px;
     font-size: 12px;
     border: 1px solid white;
     height: 70%;
@@ -188,7 +188,7 @@
 }
 
 .m-close-row {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 }
 
 .m-cols {
@@ -202,6 +202,11 @@
     width: 20px;
 }
 
+.m-lesson-plan-btn {
+    height: 30px;
+    transform: translateY(-2.5px);
+}
+
 .m-cover-col {
     margin-right: 50px;
 }
@@ -209,6 +214,11 @@
 .m-text {
     font-weight: lighter;
     margin-bottom: 10px;
+}
+
+.m-title-row {
+    display: flex;
+    justify-content: space-between;
 }
 
 .m-title {
@@ -225,6 +235,16 @@
     margin-bottom: 10px;
 }
 
+.m-tags-pane {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.m-tag {
+    margin-right: 20px;
+}
+
 </style>
 <div id="modal-container" class="">
     <div id="modal-content">
@@ -236,11 +256,25 @@
                 <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
             </div>
             <div class="m-book-info-col">
-                <div class="m-title">Hurricane Child</div>
+                <div class="m-title-row">
+                    <div class="m-title">Hurricane Child</div>
+                    <button class="m-lesson-plan-btn">click here for lesson plans</button>
+                </div>
                 <div class="m-header">Author</div>
                 <div class="m-author m-text">Kacen Callender</div>
                 <div class="m-header">Tags</div>
-                <div class="m-tags-pane"></div>
+                <div class="m-tags-pane">
+                    <div class="m-tag">Junior High</div>
+                    <div class="m-tag">Early High School</div>
+                    <div class="m-tag">Fiction</div>
+                    <div class="m-tag">Lesbian</div>
+                    <div class="m-tag">Black, Caribbean &amp; African Diaspora</div>
+                    <div class="m-tag">Spirituality</div>
+                    <div class="m-tag">Friendship</div>
+                    <div class="m-tag">Family Issues</div>
+                    <div class="m-tag">Curriculum s available</div>
+                    <div class="m-tag">Middle School Box</div>
+                </div>
                 <div class="m-header">Synopsis</div>
                 <div class="m-synopsis m-text">
                 Born during a storm, Caroline Murphy, a 12-year-old black girl, is convinced that she has been cursed with bad luck.<br/><br/>
