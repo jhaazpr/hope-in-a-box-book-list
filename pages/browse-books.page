@@ -1,4 +1,5 @@
-<squarespace:script src="inflate-booklist.js"/>
+<squarespace:script src="fuzzyset/fuzzyset.js"/>
+<squarespace:script id="fuzzyset-script" src="inflate-booklist.js"/>
 
 <!--
     FIXME: for now, do styling inline with HTML. However, this is not a good
@@ -19,7 +20,7 @@
     height: 100%;
 }
 
-.filter-search {
+#search-bar {
     height: 40px;
     padding-left: 10%;
     width: 80%;
@@ -112,7 +113,7 @@
     float: right;
     width: 80%;
     height: 100%;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
 .grid-container {
@@ -246,7 +247,7 @@
 }
 
 </style>
-<div id="modal-container" class="">
+<div id="modal-container" class="hidden">
     <div id="modal-content">
         <div class="m-close-row">
             <img class="m-close-icon" src="../assets/x-icon.png" alt="lose modal">
@@ -291,7 +292,7 @@
 
 <div class="container">
     <div class="menu-pane">
-        <input name="search" class="filter-search" type="text" placeholder="Search"/>
+        <input name="search" id="search-bar" type="text" placeholder="Search"/>
         <div class="curriculum-note">
             <img class="heart-icon" src="../assets/heart-icon.png" alt="heart icon">
             <div class="light-text">Curriculum is available</div>
@@ -375,7 +376,7 @@
     </div>
     <div class="results-pane">
         <div class="grid-container">
-            <div class="grid-item">
+            <div class="grid-item" data-book-title="Like a Love Story">
                 <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
                 <div class="item-reading-level">
                     <div class="stripe"></div>
@@ -390,7 +391,37 @@
                     Abdi Nazemian
                 </div>
             </div>
-            <div class="grid-item">
+            <div class="grid-item" data-book-title="pet">
+                <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
+                <div class="item-reading-level">
+                    <div class="stripe"></div>
+                    <div class="rl-text">
+                        early high school
+                    </div>
+                </div>
+                <div class="item-title">
+                    Pet
+                </div>
+                <div class="item-author">
+                    Abdi Nazemian
+                </div>
+            </div>
+            <div class="grid-item" data-book-title="Red at the Bone">
+                <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
+                <div class="item-reading-level">
+                    <div class="stripe"></div>
+                    <div class="rl-text">
+                        early high school
+                    </div>
+                </div>
+                <div class="item-title">
+                    Red at the Bone
+                </div>
+                <div class="item-author">
+                    Abdi Nazemian
+                </div>
+            </div>
+            <div class="grid-item" data-book-title="Hurricane Child">
                 <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
                 <div class="item-reading-level">
                     <div class="stripe"></div>
@@ -405,7 +436,7 @@
                     Abdi Nazemian
                 </div>
             </div>
-            <div class="grid-item">
+            <div class="grid-item" data-book-title="Americanah">
                 <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
                 <div class="item-reading-level">
                     <div class="stripe"></div>
@@ -414,37 +445,7 @@
                     </div>
                 </div>
                 <div class="item-title">
-                    Like a Love Story
-                </div>
-                <div class="item-author">
-                    Abdi Nazemian
-                </div>
-            </div>
-            <div class="grid-item">
-                <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
-                <div class="item-reading-level">
-                    <div class="stripe"></div>
-                    <div class="rl-text">
-                        early high school
-                    </div>
-                </div>
-                <div class="item-title">
-                    Like a Love Story
-                </div>
-                <div class="item-author">
-                    Abdi Nazemian
-                </div>
-            </div>
-            <div class="grid-item">
-                <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
-                <div class="item-reading-level">
-                    <div class="stripe"></div>
-                    <div class="rl-text">
-                        early high school
-                    </div>
-                </div>
-                <div class="item-title">
-                    Like a Love Story
+                    Americanah
                 </div>
                 <div class="item-author">
                     Abdi Nazemian
