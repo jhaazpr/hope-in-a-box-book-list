@@ -41,6 +41,7 @@
     width: 10px;
     height: 10px;
     display: inline-block;
+    cursor: pointer;
 }
 
 .float-left {
@@ -125,6 +126,7 @@
     float: left;
     margin-right: 20px;
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
 /* TODO: fix hard-coded values */
@@ -201,6 +203,7 @@
     float: right;
     height: 20px;
     width: 20px;
+    cursor: pointer;
 }
 
 .m-lesson-plan-btn {
