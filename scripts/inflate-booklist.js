@@ -1,3 +1,71 @@
+class BookTable {
+    // DO NOT COMMIT THIS
+    static endpoint = 'https://sheets.googleapis.com/v4/spreadsheets/';
+    static sheetId = '108N0dMCVQfu0G80Y64mMZJ0PCUVXVwl9b8wQfZ1lTtA';
+    static key = 'REDACTED';
+    constructor(pageDom) {
+        this.headers = [];
+        this.rows = [];
+        await this.fetchHeaders();
+        await this.fetchData();
+        this.inflatePageDomGrid(pageDom);
+    }
+
+    inflatePageDomGrid(pageDom, filters) {
+        // TODO: accomodate filters
+        // Do inflate here
+        this.rows.forEach((row, rowIdx) => {
+            let titleIdx = this.headers.indexOf('Title');
+            let authorIdx = this.headers.indexOf('Author');
+            let title = this.row[titleIdx];
+            let author = this.row[authorIdx];
+            let level = 'todo';
+            pageDom.addGridItem(title, author, level);
+        });
+    }
+
+    getAllBookTitles() {
+    }
+
+    getBookWithTitle() {
+    }
+
+    getRow() {
+    }
+
+    async fetchHeaders() {
+        let headerRange = 'A2:AR2';
+        let url = BookTable.endpoint.concat(
+            BookTable.sheetId,
+            '/values/',
+            headerRange,
+            '?key=',
+            BookTable.key
+        );
+        let response = await fetch(url);
+        if (response.ok) {
+            let json = await response.json();
+            this.headers = json.values;
+        }
+    }
+
+    async fetchData() {
+        let dataRange = 'A3:AR53';
+        let url = BookTable.endpoint.concat(
+            BookTable.sheetId,
+            '/values/',
+            dataRange,
+            '?key=',
+            BookTable.key
+        );
+        let response = await fetch(url);
+        if (response.ok) {
+            let json = await response.json();
+            this.rows = json.values;
+        }
+    }
+}
+
 class PageDom {
     constructor() {
         this.searchStore = new FuzzySet();
@@ -6,12 +74,16 @@ class PageDom {
         this.gridItems = document.getElementsByClassName('grid-item');
         this.searchBar = document.getElementById('search-bar');
         this.attachHandlers();
+        this.table = new BookTable(this);
     }
 
     inflateModalForBookTitle(bookTitle) {
         // TODO: eventually use IDs for this
         // TODO: retrieve all book data and fill fields with it
         this.modalContainer.classList.remove('hidden');
+    }
+
+    addGridItem(title, author, level) {
     }
 
     filterGridItemsWithSearchQuery(query) {
@@ -28,6 +100,11 @@ class PageDom {
         }
         else {
             let results = this.searchStore.get(query, [], 0.2);
+            if (results.length === 0) {
+                // Rather than display nothing, simply do not update if we
+                // don't get any results.
+                return;
+            }
             let resultTitles = results.map(scoreResultPair => scoreResultPair[1]);
             let bookTitle;
             this.gridItems.forEach((gridItem) => {
@@ -43,12 +120,12 @@ class PageDom {
     }
 
     attachHandlers() {
-        // Hide modal on clicking close icon
+        // Hide modal on clicking close icon.
         this.mCloseIcon.addEventListener('click', (event) => {
             this.modalContainer.classList.add('hidden');
         });
-        // Add modal-inflating handlers for all books in grid
-        // Also add book titles to search store
+        // Add modal-inflating handlers for all books in grid.
+        // Also add book titles to search store.
         this.gridItems.forEach((gridItem) => {
             let bookTitle = gridItem.dataset.bookTitle;
             this.searchStore.add(bookTitle);
@@ -56,7 +133,7 @@ class PageDom {
                 this.inflateModalForBookTitle(bookTitle);
             });
         });
-        // Attach fuzzy search functionality
+        // Attach fuzzy search functionality.
         this.searchBar.value = '';
         this.searchBar.addEventListener('input', (event) => {
             let query = this.searchBar.value;
