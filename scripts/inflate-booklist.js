@@ -3,61 +3,12 @@ class BookTable {
     static sheetId = '108N0dMCVQfu0G80Y64mMZJ0PCUVXVwl9b8wQfZ1lTtA';
     static key = 'REDACTED';
 
-    static formatProps = [
-        'Picture book',
-        'Chapter book',
-        'Graphic novel',
-        'Non-fiction',
-        'Anthology',
-        'Poetry',
-        'Scripts & plays'
-    ];
-    static representationProps = [
-        'Lesbian',
-        'Gay',
-        'Bisexual & Pansexual',
-        'Trans & Nonbinary',
-        'Queer+',
-        'Small Town, Rural & Heartland',
-        'Black, Caribbean, & African Diaspora',
-        'Asian & Asian Diaspora',
-        'Latino & Hispanic',
-        'Native American & Indigenous',
-        'Diverse ensemble',
-        'Ability'
-    ];
-    static themeProps = [
-        'Coming out',
-        'Religion & Spirituality',
-        'Diverse family structure',
-        'Relationships: Family',
-        'Relationships: Love',
-        'Relationships: Friends',
-        'Relationships: Community',
-        'Politics, Society, & Activism',
-        'Classics'
-    ];
-    static readingLevelProps = [
-        'Early elementary',
-        'Late elementary',
-        'Middle school',
-        'Early high school',
-        'Late high school'
-    ];
-
     constructor(pageDom) {
         this.pageDom = pageDom;
         this._headers = [];
         this._rows = [];
         this.books = [];
         this.buildBooks();
-    }
-
-    get allTags() {
-        return BookTable.readingLevelProps
-                .concat(BookTable.formatProps)
-                .concat(BookTable.representationProps)
-                .concat(BookTable.themeProps);
     }
 
     async buildBooks() {
@@ -97,7 +48,7 @@ class BookTable {
 
     getReadingLevelForBook(book) {
         let level = 'Unknown level';
-        BookTable.readingLevelProps.forEach((prop) => {
+        PageDom.readingLevelProps.forEach((prop) => {
             if (book[prop] !== '') {
                 level = prop;
             }
@@ -151,6 +102,77 @@ class BookTable {
 }
 
 class PageDom {
+
+    static filterCategories = [
+        'readingLevel', 'format', 'representation', 'themes',
+        'includedIn', 'curriculumAvailable'
+    ];
+
+    static formatProps = [
+        'Picture book',
+        'Chapter book',
+        'Graphic novel',
+        'Non-fiction',
+        'Anthology',
+        'Poetry',
+        'Scripts & plays'
+    ];
+    static representationProps = [
+        'Lesbian',
+        'Gay',
+        'Bisexual & Pansexual',
+        'Trans & Nonbinary',
+        'Queer+',
+        'Small Town, Rural & Heartland',
+        'Black, Caribbean, & African Diaspora',
+        'Asian & Asian Diaspora',
+        'Latino & Hispanic',
+        'Native American & Indigenous',
+        'Diverse ensemble',
+        'Ability'
+    ];
+    static themesProps = [
+        'Coming out',
+        'Religion & Spirituality',
+        'Diverse family structure',
+        'Relationships: Family',
+        'Relationships: Love',
+        'Relationships: Friends',
+        'Relationships: Community',
+        'Politics, Society, & Activism',
+        'Classics'
+    ];
+    static readingLevelProps = [
+        'Early elementary',
+        'Late elementary',
+        'Middle school',
+        'Early high school',
+        'Late high school'
+    ];
+
+    static includedInProps = [
+        'Elementary', 'Middle', 'High'
+    ];
+
+    static curriculumAvailableProps = [
+        'Yes', 'No'
+    ];
+
+    get allTags() {
+        return PageDom.readingLevelProps
+                .concat(PageDom.formatProps)
+                .concat(PageDom.representationProps)
+                .concat(PageDom.themesProps);
+    }
+
+    static kebabize = (str) => {
+       return str.split('').map((letter, idx) => {
+         return letter.toUpperCase() === letter
+          ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
+          : letter;
+       }).join('');
+    };
+
     constructor() {
         this.searchStore = new FuzzySet();
         this.mCloseIcon = document.getElementsByClassName('m-close-icon')[0];
@@ -158,8 +180,41 @@ class PageDom {
         this.gridContainer = document.getElementsByClassName('grid-container')[0];
         this.gridItems = document.getElementsByClassName('grid-item');
         this.searchBar = document.getElementById('search-bar');
+        this.filterCheckboxPanes = {};
+        PageDom.filterCategories.forEach((category) => {
+            let filterClassName = 'filters-' + PageDom.kebabize(category);
+            let filterDom = document.getElementsByClassName(filterClassName)[0];
+            let cbDom = filterDom.children[1];
+            this.filterCheckboxPanes[category] = cbDom;
+        });
+        this.inflateFilters();
         this.attachUIHandlers();
         this.table = new BookTable(this);
+    }
+
+    inflateFilters() {
+        Object.entries(this.filterCheckboxPanes).forEach((kv) => {
+            let category = kv[0];
+            let categoryCbPane = kv[1];
+            let categoryPropName = category + 'Props'
+            let filters = PageDom[categoryPropName];
+            filters.forEach((filter) => {
+                let rowDom = document.createElement('div');
+                let cbDom = document.createElement('input');
+                let labelDom = document.createElement('label');
+                let quantityDom = document.createElement('div');
+                rowDom.classList.add('checkbox-row');
+                cbDom.type = 'checkbox';
+                labelDom.classList = 'tag-text';
+                labelDom.innerText = filter;
+                quantityDom.classList.add('tag-text');
+                quantityDom.classList.add('light-text');
+                rowDom.appendChild(cbDom);
+                rowDom.appendChild(labelDom);
+                rowDom.appendChild(quantityDom);
+                categoryCbPane.appendChild(rowDom);
+            });
+        });
     }
 
     inflateModalForBookTitle(title) {
@@ -207,7 +262,7 @@ class PageDom {
     inflateTagPaneDomForTitle(tagPaneDom, title) {
         tagPaneDom.innerHTML = '';
         let book = this.table.getBookWithTitle(title);
-        let allTags = this.table.allTags;
+        let allTags = this.allTags;
         let tags = allTags.filter(tag => book[tag]);
         tags.forEach((tagText) => {
             let newTag = document.createElement('div');
