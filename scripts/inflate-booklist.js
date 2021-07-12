@@ -4,33 +4,70 @@ class BookTable {
     static sheetId = '108N0dMCVQfu0G80Y64mMZJ0PCUVXVwl9b8wQfZ1lTtA';
     static key = 'REDACTED';
     constructor(pageDom) {
-        this.headers = [];
-        this.rows = [];
-        await this.fetchHeaders();
-        await this.fetchData();
-        this.inflatePageDomGrid(pageDom);
+        this.pageDom = pageDom;
+        this._headers = [];
+        this._rows = [];
+        this.books = [];
+        this.buildBooks();
     }
 
-    inflatePageDomGrid(pageDom, filters) {
-        // TODO: accomodate filters
-        // Do inflate here
-        this.rows.forEach((row, rowIdx) => {
-            let titleIdx = this.headers.indexOf('Title');
-            let authorIdx = this.headers.indexOf('Author');
-            let title = this.row[titleIdx];
-            let author = this.row[authorIdx];
-            let level = 'todo';
-            pageDom.addGridItem(title, author, level);
+    async buildBooks() {
+        await this.fetchHeaders();
+        await this.fetchData();
+        this._rows.forEach((row, rowIdx) => {
+            let book = {};
+            this._headers.forEach((header, headerIdx) => {
+                book[header] = row[headerIdx];
+            });
+            book['RowNumber'] = rowIdx;
+            this.books.push(book);
         });
+        this.inflatePageDomGrid();
+    }
+
+    inflatePageDomGrid(filters) {
+        // TODO: accomodate filters
+        this.books.forEach((book) => {
+            let title = book['Title'];
+            let author = this.getShortAuthorForBook(book);
+            let readingLevel = this.getReadingLevelForBook(book);
+            this.pageDom.addGridItem(title, author, readingLevel);
+        });
+        this.pageDom.attachGridItemHandlers();
+    }
+
+    getShortAuthorForBook(book) {
+        let longAuthor = book['Author'];
+        return longAuthor.split(',')[0].slice(3);
+    }
+
+    getReadingLevelForBook(book) {
+        let readingLevelProps = [
+            'Early elementary',
+            'Late elementary',
+            'Middle school',
+            'Early high school',
+            'Late high school'
+        ];
+        let level = 'Unknown level';
+        readingLevelProps.forEach((prop) => {
+            if (book[prop] !== '') {
+                level = prop;
+            }
+        });
+        return level;
     }
 
     getAllBookTitles() {
+        return this.books.map(book => book['Title']);
     }
 
-    getBookWithTitle() {
+    getBookWithTitle(title) {
+        return this.books.find(book => book['Title'] === title);
     }
 
-    getRow() {
+    getBookWithRowNumber(rowNumber) {
+        return this.books.find(book => book['RowNumber'] === rowNumber);
     }
 
     async fetchHeaders() {
@@ -45,7 +82,7 @@ class BookTable {
         let response = await fetch(url);
         if (response.ok) {
             let json = await response.json();
-            this.headers = json.values;
+            this._headers = json.values[0];
         }
     }
 
@@ -61,7 +98,7 @@ class BookTable {
         let response = await fetch(url);
         if (response.ok) {
             let json = await response.json();
-            this.rows = json.values;
+            this._rows = json.values;
         }
     }
 }
@@ -71,9 +108,10 @@ class PageDom {
         this.searchStore = new FuzzySet();
         this.mCloseIcon = document.getElementsByClassName('m-close-icon')[0];
         this.modalContainer = document.getElementById('modal-container');
+        this.gridContainer = document.getElementsByClassName('grid-container')[0];
         this.gridItems = document.getElementsByClassName('grid-item');
         this.searchBar = document.getElementById('search-bar');
-        this.attachHandlers();
+        this.attachUIHandlers();
         this.table = new BookTable(this);
     }
 
@@ -83,7 +121,33 @@ class PageDom {
         this.modalContainer.classList.remove('hidden');
     }
 
-    addGridItem(title, author, level) {
+    addGridItem(title, author, readingLevel) {
+        let newGridItem = document.createElement('div');
+        let coverImg = document.createElement('img');
+        let readingLevelDiv = document.createElement('div');
+        let stripeDiv = document.createElement('div');
+        let rlTextDiv = document.createElement('div');
+        let titleDiv = document.createElement('div');
+        let authorDiv = document.createElement('div');
+        newGridItem.classList.add('grid-item');
+        coverImg.classList.add('book-cover');
+        readingLevelDiv.classList.add('item-reading-level');
+        stripeDiv.classList.add('stripe');
+        rlTextDiv.classList.add('rl-text');
+        titleDiv.classList.add('item-title');
+        authorDiv.classList.add('item-author');
+        // TODO: generate bookcover URL
+        coverImg.src = '../assets/book-covers/like-a-love-story.jpg';
+        rlTextDiv.innerText = readingLevel;
+        titleDiv.innerText = title;
+        authorDiv.innerText = author;
+        newGridItem.appendChild(coverImg);
+        newGridItem.appendChild(readingLevelDiv);
+        readingLevelDiv.appendChild(stripeDiv);
+        readingLevelDiv.appendChild(rlTextDiv);
+        newGridItem.appendChild(titleDiv);
+        newGridItem.appendChild(authorDiv);
+        this.gridContainer.appendChild(newGridItem);
     }
 
     filterGridItemsWithSearchQuery(query) {
@@ -119,11 +183,7 @@ class PageDom {
         }
     }
 
-    attachHandlers() {
-        // Hide modal on clicking close icon.
-        this.mCloseIcon.addEventListener('click', (event) => {
-            this.modalContainer.classList.add('hidden');
-        });
+    attachGridItemHandlers() {
         // Add modal-inflating handlers for all books in grid.
         // Also add book titles to search store.
         this.gridItems.forEach((gridItem) => {
@@ -132,6 +192,13 @@ class PageDom {
             gridItem.addEventListener('click', (event) => {
                 this.inflateModalForBookTitle(bookTitle);
             });
+        });
+    }
+
+    attachUIHandlers() {
+        // Hide modal on clicking close icon.
+        this.mCloseIcon.addEventListener('click', (event) => {
+            this.modalContainer.classList.add('hidden');
         });
         // Attach fuzzy search functionality.
         this.searchBar.value = '';
