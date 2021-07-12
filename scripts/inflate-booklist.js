@@ -1,14 +1,63 @@
 class BookTable {
-    // DO NOT COMMIT THIS
     static endpoint = 'https://sheets.googleapis.com/v4/spreadsheets/';
     static sheetId = '108N0dMCVQfu0G80Y64mMZJ0PCUVXVwl9b8wQfZ1lTtA';
     static key = 'REDACTED';
+
+    static formatProps = [
+        'Picture book',
+        'Chapter book',
+        'Graphic novel',
+        'Non-fiction',
+        'Anthology',
+        'Poetry',
+        'Scripts & plays'
+    ];
+    static representationProps = [
+        'Lesbian',
+        'Gay',
+        'Bisexual & Pansexual',
+        'Trans & Nonbinary',
+        'Queer+',
+        'Small Town, Rural & Heartland',
+        'Black, Caribbean, & African Diaspora',
+        'Asian & Asian Diaspora',
+        'Latino & Hispanic',
+        'Native American & Indigenous',
+        'Diverse ensemble',
+        'Ability'
+    ];
+    static themeProps = [
+        'Coming out',
+        'Religion & Spirituality',
+        'Diverse family structure',
+        'Relationships: Family',
+        'Relationships: Love',
+        'Relationships: Friends',
+        'Relationships: Community',
+        'Politics, Society, & Activism',
+        'Classics'
+    ];
+    static readingLevelProps = [
+        'Early elementary',
+        'Late elementary',
+        'Middle school',
+        'Early high school',
+        'Late high school'
+    ];
+
     constructor(pageDom) {
         this.pageDom = pageDom;
         this._headers = [];
         this._rows = [];
         this.books = [];
         this.buildBooks();
+    }
+
+    get allTags() {
+        return BookTable.readingLevelProps
+                .concat(BookTable.formatProps)
+                .concat(BookTable.representationProps)
+                .concat(BookTable.themeProps);
     }
 
     async buildBooks() {
@@ -27,6 +76,7 @@ class BookTable {
 
     inflatePageDomGrid(filters) {
         // TODO: accomodate filters
+        this.pageDom.gridContainer.innerHTML = '';
         this.books.forEach((book) => {
             let title = book['Title'];
             let author = this.getShortAuthorForBook(book);
@@ -37,20 +87,17 @@ class BookTable {
     }
 
     getShortAuthorForBook(book) {
+        // FIXME: this is a hack--decide on author format
         let longAuthor = book['Author'];
+        if (!longAuthor.includes('by')) {
+            return longAuthor;
+        }
         return longAuthor.split(',')[0].slice(3);
     }
 
     getReadingLevelForBook(book) {
-        let readingLevelProps = [
-            'Early elementary',
-            'Late elementary',
-            'Middle school',
-            'Early high school',
-            'Late high school'
-        ];
         let level = 'Unknown level';
-        readingLevelProps.forEach((prop) => {
+        BookTable.readingLevelProps.forEach((prop) => {
             if (book[prop] !== '') {
                 level = prop;
             }
@@ -115,9 +162,16 @@ class PageDom {
         this.table = new BookTable(this);
     }
 
-    inflateModalForBookTitle(bookTitle) {
-        // TODO: eventually use IDs for this
-        // TODO: retrieve all book data and fill fields with it
+    inflateModalForBookTitle(title) {
+        let book = this.table.getBookWithTitle(title);
+        let mTitle = document.getElementsByClassName('m-title')[0];
+        let mAuthor = document.getElementsByClassName('m-author')[0];
+        let mTagPane = document.getElementsByClassName('m-tags-pane')[0];
+        let mSynopsis = document.getElementsByClassName('m-synopsis')[0];
+        mTitle.innerText = title;
+        mAuthor.innerText = book['Author']
+        mSynopsis.innerText = book['Synopsis'];
+        this.inflateTagPaneDomForTitle(mTagPane, title);
         this.modalContainer.classList.remove('hidden');
     }
 
@@ -148,6 +202,19 @@ class PageDom {
         newGridItem.appendChild(titleDiv);
         newGridItem.appendChild(authorDiv);
         this.gridContainer.appendChild(newGridItem);
+    }
+
+    inflateTagPaneDomForTitle(tagPaneDom, title) {
+        tagPaneDom.innerHTML = '';
+        let book = this.table.getBookWithTitle(title);
+        let allTags = this.table.allTags;
+        let tags = allTags.filter(tag => book[tag]);
+        tags.forEach((tagText) => {
+            let newTag = document.createElement('div');
+            newTag.classList.add('m-tag');
+            newTag.innerText = tagText;
+            tagPaneDom.appendChild(newTag);
+        });
     }
 
     filterGridItemsWithSearchQuery(query) {
@@ -187,10 +254,11 @@ class PageDom {
         // Add modal-inflating handlers for all books in grid.
         // Also add book titles to search store.
         this.gridItems.forEach((gridItem) => {
-            let bookTitle = gridItem.dataset.bookTitle;
-            this.searchStore.add(bookTitle);
+            let title = gridItem.getElementsByClassName('item-title')[0]
+                        .innerText;
+            this.searchStore.add(title);
             gridItem.addEventListener('click', (event) => {
-                this.inflateModalForBookTitle(bookTitle);
+                this.inflateModalForBookTitle(title);
             });
         });
     }
