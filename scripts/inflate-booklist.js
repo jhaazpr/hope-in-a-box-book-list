@@ -168,6 +168,8 @@ class PageDom {
         this.gridContainer = document.getElementsByClassName('grid-container')[0];
         this.gridItems = document.getElementsByClassName('grid-item');
         this.searchBar = document.getElementById('search-bar');
+        this.filterTagList = document.getElementsByClassName('filter-list')[0];
+        this.clearFilterText = document.getElementById('clear-filters');
         this.filterCheckboxPanes = {};
         PageDom.filterCategories.forEach((category) => {
             let filterClassName = 'filters-' + PageDom.kebabize(category);
@@ -180,11 +182,12 @@ class PageDom {
         this.table = new BookTable(this);
     }
 
-    inflateGrid(filters) {
-        filters = filters || [];
+    inflateGrid() {
+        let checkedFilterNames = this.getCheckedFilterNames();
         this.gridContainer.innerHTML = '';
         let filteredBooks = this.table.books.filter((book) => {
-            let bookFilterResults = filters.map(filterName => book[filterName]);
+            let bookFilterResults = checkedFilterNames.map(filterName =>
+                book[filterName]);
             return bookFilterResults.reduce((a, b) => a && b, '1');
         });
         filteredBooks.forEach((book) => {
@@ -210,8 +213,8 @@ class PageDom {
                 rowDom.classList.add('checkbox-row');
                 cbDom.type = 'checkbox';
                 cbDom.addEventListener('click', (event) => {
-                    let checkedFilterNames = this.getCheckedFilterNames();
-                    this.inflateGrid(checkedFilterNames);
+                    this.inflateGrid();
+                    this.renderFilterTags();
                     this.runSearchOnGridItems();
                 });
                 labelDom.classList = 'tag-text';
@@ -231,6 +234,44 @@ class PageDom {
         cbRowDoms = Array.from(cbRowDoms);
         let checkedCbRowDoms = cbRowDoms.filter(row => row.children[0].checked);
         return checkedCbRowDoms.map(row => row.children[1].innerText);
+    }
+
+    renderFilterTags() {
+        this.filterTagList.innerHTML = '';
+        let filterNames = this.getCheckedFilterNames();
+        let numFiltersTextDom = document.getElementById('num-filters');
+        numFiltersTextDom.innerText = `(${filterNames.length})`;
+        filterNames.forEach((filterName) => {
+            let tagDom = document.createElement('div');
+            let iconDom = document.createElement('img');
+            let textDom = document.createElement('div');
+            tagDom.classList.add('filter-tag');
+            iconDom.src = '../assets/x-icon.png';
+            iconDom.alt = 'Delete tag icon';
+            iconDom.classList.add('x-icon');
+            iconDom.addEventListener('click', (event) => {
+                this.removeFilter(filterName);
+            });
+            textDom.classList.add('tag-text');
+            textDom.innerText = filterName;
+            tagDom.appendChild(iconDom);
+            tagDom.appendChild(textDom);
+            this.filterTagList.appendChild(tagDom);
+        });
+    }
+
+    removeFilter(filterName) {
+        let cbRowDoms = document.getElementsByClassName('checkbox-row');
+        let filterRow = Array.from(cbRowDoms).find(rowDom => {
+            let filterTextDom = rowDom.children[1];
+            return filterTextDom.innerText === filterName;
+        });
+        if (filterRow) {
+            filterRow.children[0].checked = false;
+            // TODO: consolidate rendering functionality
+            this.renderFilterTags();
+            this.inflateGrid();
+        }
     }
 
     inflateModalForBookTitle(title) {
@@ -341,6 +382,16 @@ class PageDom {
         this.searchBar.value = '';
         this.searchBar.addEventListener('input', (event) => {
             this.runSearchOnGridItems();
+        });
+        // Clear all filters
+        // TODO: rather than clear all checkboxes directly, call
+        // removeFilter() without re-rendering every time
+        this.clearFilterText.addEventListener('click', (event) => {
+            let inputDoms = document.getElementsByTagName('input');
+            let cbDoms = Array.from(inputDoms).filter(dom => dom.type === 'checkbox');
+            cbDoms.forEach(dom => dom.checked = false);
+            this.renderFilterTags();
+            this.inflateGrid();
         });
     }
 }

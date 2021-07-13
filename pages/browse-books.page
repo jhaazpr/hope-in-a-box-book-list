@@ -26,6 +26,11 @@
     margin-bottom: 10px;
 }
 
+#clear-filters {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .heart-icon {
     width: 20px;
     height: 20px;
@@ -39,6 +44,7 @@
 .x-icon {
     width: 10px;
     height: 10px;
+    margin-right: 5px;
     display: inline-block;
     cursor: pointer;
 }
@@ -313,26 +319,11 @@ input[type='checkbox'] {
                     Filters...
                 </div>
                 <div class="light-text float-right">
-                    Clear all (0)
+                    <span id="clear-filters">Clear all</span>
+                    <span id="num-filters">(0)</span>
                 </div>
             </div>
             <div class="filter-list">
-                <div class="filter-tag">
-                    <img class="x-icon" src="../assets/x-icon.png" alt="Delete tag icon">
-                    <div class="tag-text">Gay</div>
-                </div>
-                <div class="filter-tag">
-                    <img class="x-icon" src="../assets/x-icon.png" alt="Delete tag icon">
-                    <div class="tag-text">Lesbian</div>
-                </div>
-                <div class="filter-tag">
-                    <img class="x-icon" src="../assets/x-icon.png" alt="Delete tag icon">
-                    <div class="tag-text">Curriculum is available</div>
-                </div>
-                <div class="filter-tag">
-                    <img class="x-icon" src="../assets/x-icon.png" alt="Delete tag icon">
-                    <div class="tag-text">Black, Caribbean &amp; African Diaspora</div>
-                </div>
             </div>
         </div>
         <div class="filters-reading-level">
