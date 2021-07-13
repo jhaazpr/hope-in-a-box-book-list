@@ -94,6 +94,7 @@
     font-size: 12px;
     font-weight: lighter;
     color: #000;
+    margin-left: 5px;
 }
 
 .tag-text.light-text {

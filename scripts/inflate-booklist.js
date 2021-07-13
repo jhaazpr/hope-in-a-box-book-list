@@ -8,21 +8,22 @@ class BookTable {
         this._headers = [];
         this._rows = [];
         this.books = [];
-        this.buildBooks();
     }
 
     async buildBooks() {
-        await this.fetchHeaders();
+        await this.fetchHeaders()
         await this.fetchData();
-        this._rows.forEach((row, rowIdx) => {
-            let book = {};
-            this._headers.forEach((header, headerIdx) => {
-                book[header] = row[headerIdx];
+        return new Promise((resolve, reject) => {
+            this._rows.forEach((row, rowIdx) => {
+                let book = {};
+                this._headers.forEach((header, headerIdx) => {
+                    book[header] = row[headerIdx];
+                });
+                book['RowNumber'] = rowIdx;
+                this.books.push(book);
             });
-            book['RowNumber'] = rowIdx;
-            this.books.push(book);
+            resolve(this.books);
         });
-        this.pageDom.inflateGrid();
     }
 
     getShortAuthorForBook(book) {
@@ -177,9 +178,13 @@ class PageDom {
             let cbDom = filterDom.children[1];
             this.filterCheckboxPanes[category] = cbDom;
         });
-        this.inflateFilters();
-        this.attachUIHandlers();
         this.table = new BookTable(this);
+        this.table.buildBooks()
+        .then((_) => {
+            this.inflateFilters();
+            this.inflateGrid();
+            this.attachUIHandlers();
+        });
     }
 
     inflateGrid() {
@@ -221,12 +226,18 @@ class PageDom {
                 labelDom.innerText = filter;
                 quantityDom.classList.add('tag-text');
                 quantityDom.classList.add('light-text');
+                quantityDom.innerText = `(${this.countItemsWithFilter(filter)})`;
                 rowDom.appendChild(cbDom);
                 rowDom.appendChild(labelDom);
                 rowDom.appendChild(quantityDom);
                 categoryCbPane.appendChild(rowDom);
             });
         });
+    }
+
+    countItemsWithFilter(filterName) {
+        let passFilterBooks = this.table.books.filter(book => book[filterName]);
+        return passFilterBooks.length;
     }
 
     getCheckedFilterNames() {
@@ -302,8 +313,10 @@ class PageDom {
         rlTextDiv.classList.add('rl-text');
         titleDiv.classList.add('item-title');
         authorDiv.classList.add('item-author');
-        // TODO: generate bookcover URL
         coverImg.src = '../assets/book-covers/like-a-love-story.jpg';
+        // TODO: generate bookcover URL, but need to have books named
+        // in kebab case or something
+        // coverImg.src = `../assets/book-covers/${title}.jpg`;
         rlTextDiv.innerText = readingLevel;
         titleDiv.innerText = title;
         authorDiv.innerText = author;
