@@ -105,6 +105,10 @@
     display: inline-block;
 }
 
+input[type='checkbox'] {
+    margin-right: 5px;
+}
+
 .checkbox-pane {
     margin-bottom: 10px;
 }

@@ -22,19 +22,7 @@ class BookTable {
             book['RowNumber'] = rowIdx;
             this.books.push(book);
         });
-        this.inflatePageDomGrid();
-    }
-
-    inflatePageDomGrid(filters) {
-        // TODO: accomodate filters
-        this.pageDom.gridContainer.innerHTML = '';
-        this.books.forEach((book) => {
-            let title = book['Title'];
-            let author = this.getShortAuthorForBook(book);
-            let readingLevel = this.getReadingLevelForBook(book);
-            this.pageDom.addGridItem(title, author, readingLevel);
-        });
-        this.pageDom.attachGridItemHandlers();
+        this.pageDom.inflateGrid();
     }
 
     getShortAuthorForBook(book) {
@@ -192,6 +180,22 @@ class PageDom {
         this.table = new BookTable(this);
     }
 
+    inflateGrid(filters) {
+        filters = filters || [];
+        this.gridContainer.innerHTML = '';
+        let filteredBooks = this.table.books.filter((book) => {
+            let bookFilterResults = filters.map(filterName => book[filterName]);
+            return bookFilterResults.reduce((a, b) => a && b, '1');
+        });
+        filteredBooks.forEach((book) => {
+            let title = book['Title'];
+            let author = this.table.getShortAuthorForBook(book);
+            let readingLevel = this.table.getReadingLevelForBook(book);
+            this.addGridItem(title, author, readingLevel);
+        });
+        this.attachGridItemHandlers();
+    }
+
     inflateFilters() {
         Object.entries(this.filterCheckboxPanes).forEach((kv) => {
             let category = kv[0];
@@ -205,6 +209,10 @@ class PageDom {
                 let quantityDom = document.createElement('div');
                 rowDom.classList.add('checkbox-row');
                 cbDom.type = 'checkbox';
+                cbDom.addEventListener('click', (event) => {
+                    let checkedFilterNames = this.getCheckedFilterNames();
+                    this.inflateGrid(checkedFilterNames);
+                });
                 labelDom.classList = 'tag-text';
                 labelDom.innerText = filter;
                 quantityDom.classList.add('tag-text');
@@ -215,6 +223,13 @@ class PageDom {
                 categoryCbPane.appendChild(rowDom);
             });
         });
+    }
+
+    getCheckedFilterNames() {
+        let cbRowDoms = document.getElementsByClassName('checkbox-row');
+        cbRowDoms = Array.from(cbRowDoms);
+        let checkedCbRowDoms = cbRowDoms.filter(row => row.children[0].checked);
+        return checkedCbRowDoms.map(row => row.children[1].innerText);
     }
 
     inflateModalForBookTitle(title) {
