@@ -212,6 +212,7 @@ class PageDom {
                 cbDom.addEventListener('click', (event) => {
                     let checkedFilterNames = this.getCheckedFilterNames();
                     this.inflateGrid(checkedFilterNames);
+                    this.runSearchOnGridItems();
                 });
                 labelDom.classList = 'tag-text';
                 labelDom.innerText = filter;
@@ -287,13 +288,11 @@ class PageDom {
         });
     }
 
-    filterGridItemsWithSearchQuery(query) {
-        // TODO: integrate hiding functionality with filters. For example,
-        // if we have already filtered something out, then it doesn't show
-        // up in search, then we clear out the search, the filtered-out item
-        // should not just suddenly appear again. It would be great if we had
-        // a data store of book objects that we process before rendering,
-        // rather than modifying an existing rendering.
+    runSearchOnGridItems() {
+        // NOTE: searching works by applying display: hidden to non-applicable
+        // grid items, whereas filtering renders only those grid items that
+        // pass filtering.
+        let query = this.searchBar.value;
         if (query === '') {
             this.gridItems.forEach((gridItem) => {
                 gridItem.classList.remove('hidden');
@@ -309,7 +308,7 @@ class PageDom {
             let resultTitles = results.map(scoreResultPair => scoreResultPair[1]);
             let bookTitle;
             this.gridItems.forEach((gridItem) => {
-                bookTitle = gridItem.dataset.bookTitle;
+                bookTitle = gridItem.children[2].innerText;
                 if (resultTitles.contains(bookTitle)) {
                     gridItem.classList.remove('hidden');
                 }
@@ -341,8 +340,7 @@ class PageDom {
         // Attach fuzzy search functionality.
         this.searchBar.value = '';
         this.searchBar.addEventListener('input', (event) => {
-            let query = this.searchBar.value;
-            this.filterGridItemsWithSearchQuery(query);
+            this.runSearchOnGridItems();
         });
     }
 }
