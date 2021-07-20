@@ -288,11 +288,10 @@ input[type='checkbox'] {
                 <div class="m-tags-pane">
                 </div>
                 <div class="m-header">Synopsis</div>
+                <div class="m-synopsis m-text">
+                </div>
                 <div>
                     <a class="m-synopsis-source" href="">Source</a>
-                </div>
-                <div class="m-synopsis m-text">
-                    Synopsis
                 </div>
             </div>
         </div>

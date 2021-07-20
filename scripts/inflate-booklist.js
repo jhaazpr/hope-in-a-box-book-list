@@ -27,6 +27,21 @@ class BookTable {
         });
     }
 
+    sortBooksByTitle() {
+        console.log('here');
+        this.books = this.books.sort((a, b) => {
+            if (a['Title'] < b['Title']) {
+                return -1;
+            }
+            else if (a['Title'] > b['Title']) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        });
+    }
+
     generateTextFile() {
         let jsonObj = {
             books: this.books
@@ -207,6 +222,7 @@ class PageDom {
         if (willRequestBooksWithApi) {
             this.table.buildBooksWithApiCall()
             .then((_) => {
+                this.table.sortBooksByTitle();
                 this.inflateFilters();
                 this.inflateGrid();
                 this.attachUIHandlers();
@@ -221,6 +237,7 @@ class PageDom {
     setBooksFromJsonText(jsonText) {
         if (!this.willRequestBooksWithApi) {
             this.table.books = JSON.parse(jsonText)['books'];
+            this.table.sortBooksByTitle();
             this.inflateFilters();
             this.inflateGrid();
             this.attachUIHandlers();
