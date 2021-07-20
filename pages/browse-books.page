@@ -177,6 +177,10 @@ input[type='checkbox'] {
     max-width: 150px;
 }
 
+.cover-container {
+    height: 250px;
+}
+
 .hidden {
     display: none;
 }
@@ -198,7 +202,7 @@ input[type='checkbox'] {
     border: 1px solid white;
     height: 70%;
     width: 70%;
-    margin: 5% auto 0 auto;
+    margin: 5% auto 5% auto;
     overflow-y: scroll;
     display: flex;
     flex-direction: column;

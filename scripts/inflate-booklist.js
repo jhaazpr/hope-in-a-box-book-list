@@ -344,6 +344,7 @@ class PageDom {
 
     addGridItem(title, author, readingLevel) {
         let newGridItem = document.createElement('div');
+        let coverContainer = document.createElement('div');
         let coverImg = document.createElement('img');
         let readingLevelDiv = document.createElement('div');
         let stripeDiv = document.createElement('div');
@@ -351,6 +352,7 @@ class PageDom {
         let titleDiv = document.createElement('div');
         let authorDiv = document.createElement('div');
         newGridItem.classList.add('grid-item');
+        coverContainer.classList.add('cover-container');
         coverImg.classList.add('book-cover');
         readingLevelDiv.classList.add('item-reading-level');
         stripeDiv.classList.add('stripe');
@@ -365,7 +367,8 @@ class PageDom {
         rlTextDiv.innerText = readingLevel;
         titleDiv.innerText = title;
         authorDiv.innerText = author;
-        newGridItem.appendChild(coverImg);
+        coverContainer.appendChild(coverImg);
+        newGridItem.appendChild(coverContainer);
         newGridItem.appendChild(readingLevelDiv);
         readingLevelDiv.appendChild(stripeDiv);
         readingLevelDiv.appendChild(rlTextDiv);
