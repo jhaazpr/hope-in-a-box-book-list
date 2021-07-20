@@ -271,38 +271,25 @@ input[type='checkbox'] {
         </div>
         <div class="m-cols">
             <div class="m-cover-col">
-                <img class="book-cover" src="../assets/book-covers/like-a-love-story.jpg" alt="Like a Love Story">
+                <img class="m-cover book-cover" src="" alt="Like a Love Story">
             </div>
             <div class="m-book-info-col">
                 <div class="m-title-row">
-                    <div class="m-title">Ttile</div>
+                    <div class="m-title">Title</div>
                     <button class="m-lesson-plan-btn">click here for lesson plans</button>
                 </div>
                 <div class="m-header">Author</div>
-                <div class="m-author m-text">Author</div>
+                <div class="m-author m-text"></div>
                 <div class="m-header">Tags</div>
                 <div class="m-tags-pane">
-                    <div class="m-tag">Junior High</div>
-                    <div class="m-tag">Early High School</div>
-                    <div class="m-tag">Fiction</div>
-                    <div class="m-tag">Lesbian</div>
-                    <div class="m-tag">Black, Caribbean &amp; African Diaspora</div>
-                    <div class="m-tag">Spirituality</div>
-                    <div class="m-tag">Friendship</div>
-                    <div class="m-tag">Family Issues</div>
-                    <div class="m-tag">Curriculum s available</div>
-                    <div class="m-tag">Middle School Box</div>
                 </div>
                 <div class="m-header">Synopsis</div>
+                <div>
+                    <a class="m-synopsis-source" href="">Source</a>
+                </div>
                 <div class="m-synopsis m-text">
                     Synopsis
                 </div>
-                <!--
-                <div class="m-header m-header-lesson-plans">Click here for lesson plans</div>
-                <div class="m-lesson-plans m-text">Curriculum is currently available for this title. Hope in a Box has developed the nation’s largest library of LGBTQ-inclusive curriculum. Our guides are written by and for educators, tied to Common Core State Standards, and adapted for in-person and virtual learning. We want your feedback -- let us know which books to cover next!</div>
-                <div class="m-header m-header-buy-book">Click here to buy this book</div>
-                <div class="m-buy-book m-text">Hope in a Box supports LGBTQ-friendly independent bookstores. Follow the link above to purchase this book from Northshire Bookstore.</div>
-                -->
             </div>
         </div>
     </div>
