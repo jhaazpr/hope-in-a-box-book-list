@@ -8,9 +8,10 @@ class BookTable {
         this._headers = [];
         this._rows = [];
         this.books = [];
+        this.textFileUrl = null;
     }
 
-    async buildBooks() {
+    async buildBooksWithApiCall() {
         await this.fetchHeaders()
         await this.fetchData();
         return new Promise((resolve, reject) => {
@@ -24,6 +25,21 @@ class BookTable {
             });
             resolve(this.books);
         });
+    }
+
+    generateTextFile() {
+        let jsonObj = {
+            books: this.books
+        };
+        // FIXME: deal with fancy character encoding
+        let jsonText = JSON.stringify(JSON.stringify(jsonObj));
+        let progText = `window.bookJsonText(${jsonText});`
+        let data = new Blob([progText], {type: 'text/plain;charset=UTF-8'});
+        if (this.textFileUrl !== null) {
+            window.URL.revokeObjectURL(this.textFileUrl);
+        }
+        this.textFileUrl = window.URL.createObjectURL(data);
+        console.log(this.textFileUrl);
     }
 
     getShortAuthorForBook(book) {
@@ -162,7 +178,8 @@ class PageDom {
        }).join('');
     };
 
-    constructor() {
+    constructor(willRequestBooksWithApi) {
+        this.willRequestBooksWithApi = willRequestBooksWithApi;
         this.searchStore = new FuzzySet();
         this.mCloseIcon = document.getElementsByClassName('m-close-icon')[0];
         this.modalContainer = document.getElementById('modal-container');
@@ -179,12 +196,27 @@ class PageDom {
             this.filterCheckboxPanes[category] = cbDom;
         });
         this.table = new BookTable(this);
-        this.table.buildBooks()
-        .then((_) => {
+        if (willRequestBooksWithApi) {
+            this.table.buildBooksWithApiCall()
+            .then((_) => {
+                this.inflateFilters();
+                this.inflateGrid();
+                this.attachUIHandlers();
+                this.table.generateTextFile();
+            });
+        }
+        else {
+            this.setBooksFromJsonText(window.bookJsonText);
+        }
+    }
+
+    setBooksFromJsonText(jsonText) {
+        if (!this.willRequestBooksWithApi) {
+            this.table.books = JSON.parse(jsonText)['books'];
             this.inflateFilters();
             this.inflateGrid();
             this.attachUIHandlers();
-        });
+        }
     }
 
     inflateGrid() {
@@ -410,8 +442,7 @@ class PageDom {
 }
 
 let main = () => {
-    let pageDom = new PageDom();
-    console.log('Inflate script loaded.');
+    window.pageDom = new PageDom(true);
 };
 
 window.addEventListener('load', main, false);
