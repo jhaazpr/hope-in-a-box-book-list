@@ -385,17 +385,18 @@ class PageDom {
             });
         }
         else {
-            let results = this.searchStore.get(query, [], 0.2);
-            if (results.length === 0) {
+            let resultScorePairs = this.searchStore.get(query, [], 0.33);
+            if (resultScorePairs.length === 0) {
                 // Rather than display nothing, simply do not update if we
                 // don't get any results.
                 return;
             }
-            let resultTitles = results.map(scoreResultPair => scoreResultPair[1]);
-            let bookTitle;
+            let results = resultScorePairs.map(pair => pair[1]);
+            let title, author;
             this.gridItems.forEach((gridItem) => {
-                bookTitle = gridItem.children[2].innerText;
-                if (resultTitles.contains(bookTitle)) {
+                title = gridItem.children[2].innerText;
+                author = gridItem.children[3].innerText;
+                if (results.contains(title) || results.contains(author)) {
                     gridItem.classList.remove('hidden');
                 }
                 else {
@@ -411,7 +412,10 @@ class PageDom {
         this.gridItems.forEach((gridItem) => {
             let title = gridItem.getElementsByClassName('item-title')[0]
                         .innerText;
+            let author = gridItem.getElementsByClassName('item-author')[0]
+                        .innerText;
             this.searchStore.add(title);
+            this.searchStore.add(author);
             gridItem.addEventListener('click', (event) => {
                 this.inflateModalForBookTitle(title);
             });
