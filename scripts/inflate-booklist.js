@@ -1,34 +1,12 @@
 class BookTable {
-    static endpoint = 'https://sheets.googleapis.com/v4/spreadsheets/';
-    static sheetId = '108N0dMCVQfu0G80Y64mMZJ0PCUVXVwl9b8wQfZ1lTtA';
-    static key = 'REDACTED';
-
     constructor(pageDom) {
         this.pageDom = pageDom;
         this._headers = [];
         this._rows = [];
         this.books = [];
-        this.textFileUrl = null;
-    }
-
-    async buildBooksWithApiCall() {
-        await this.fetchHeaders()
-        await this.fetchData();
-        return new Promise((resolve, reject) => {
-            this._rows.forEach((row, rowIdx) => {
-                let book = {};
-                this._headers.forEach((header, headerIdx) => {
-                    book[header] = row[headerIdx];
-                });
-                book['RowNumber'] = rowIdx;
-                this.books.push(book);
-            });
-            resolve(this.books);
-        });
     }
 
     sortBooksByTitle() {
-        console.log('here');
         this.books = this.books.sort((a, b) => {
             if (a['Title'] < b['Title']) {
                 return -1;
@@ -40,20 +18,6 @@ class BookTable {
                 return 0;
             }
         });
-    }
-
-    generateTextFile() {
-        let jsonObj = {
-            books: this.books
-        };
-        let jsonText = JSON.stringify(JSON.stringify(jsonObj));
-        let progText = `window.bookJsonText = ${jsonText};`
-        let data = new Blob([progText], {type: 'text/plain;charset=UTF-8'});
-        if (this.textFileUrl !== null) {
-            window.URL.revokeObjectURL(this.textFileUrl);
-        }
-        this.textFileUrl = window.URL.createObjectURL(data);
-        console.log(this.textFileUrl);
     }
 
     getShortAuthorForBook(book) {
@@ -85,38 +49,6 @@ class BookTable {
 
     getBookWithRowNumber(rowNumber) {
         return this.books.find(book => book['RowNumber'] === rowNumber);
-    }
-
-    async fetchHeaders() {
-        let headerRange = 'A2:AR2';
-        let url = BookTable.endpoint.concat(
-            BookTable.sheetId,
-            '/values/',
-            headerRange,
-            '?key=',
-            BookTable.key
-        );
-        let response = await fetch(url);
-        if (response.ok) {
-            let json = await response.json();
-            this._headers = json.values[0];
-        }
-    }
-
-    async fetchData() {
-        let dataRange = 'A3:AR102';
-        let url = BookTable.endpoint.concat(
-            BookTable.sheetId,
-            '/values/',
-            dataRange,
-            '?key=',
-            BookTable.key
-        );
-        let response = await fetch(url);
-        if (response.ok) {
-            let json = await response.json();
-            this._rows = json.values;
-        }
     }
 }
 
@@ -201,8 +133,7 @@ class PageDom {
         }).join('');
     };
 
-    constructor(willRequestBooksWithApi) {
-        this.willRequestBooksWithApi = willRequestBooksWithApi;
+    constructor() {
         this.searchStore = new FuzzySet();
         this.mCloseIcon = document.getElementsByClassName('m-close-icon')[0];
         this.modalContainer = document.getElementById('modal-container');
@@ -219,19 +150,7 @@ class PageDom {
             this.filterCheckboxPanes[category] = cbDom;
         });
         this.table = new BookTable(this);
-        if (willRequestBooksWithApi) {
-            this.table.buildBooksWithApiCall()
-            .then((_) => {
-                this.table.sortBooksByTitle();
-                this.inflateFilters();
-                this.inflateGrid();
-                this.attachUIHandlers();
-                this.table.generateTextFile();
-            });
-        }
-        else {
-            this.setBooksFromJsonText(window.bookJsonText);
-        }
+        this.setBooksFromJsonText(window.bookJsonText);
     }
 
     setBooksFromJsonText(jsonText) {
@@ -479,7 +398,7 @@ class PageDom {
 }
 
 let main = () => {
-    window.pageDom = new PageDom(false);
+    window.pageDom = new PageDom();
 };
 
 window.addEventListener('load', main, false);
