@@ -31,9 +31,8 @@ class BookTable {
         let jsonObj = {
             books: this.books
         };
-        // FIXME: deal with fancy character encoding
         let jsonText = JSON.stringify(JSON.stringify(jsonObj));
-        let progText = `window.bookJsonText(${jsonText});`
+        let progText = `window.bookJsonText = ${jsonText};`
         let data = new Blob([progText], {type: 'text/plain;charset=UTF-8'});
         if (this.textFileUrl !== null) {
             window.URL.revokeObjectURL(this.textFileUrl);
@@ -90,7 +89,7 @@ class BookTable {
     }
 
     async fetchData() {
-        let dataRange = 'A3:AR53';
+        let dataRange = 'A3:AR102';
         let url = BookTable.endpoint.concat(
             BookTable.sheetId,
             '/values/',
@@ -170,12 +169,21 @@ class PageDom {
                 .concat(PageDom.themesProps);
     }
 
-    static kebabize = (str) => {
-       return str.split('').map((letter, idx) => {
-         return letter.toUpperCase() === letter
-          ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
-          : letter;
-       }).join('');
+    static titleToKebab = (title) => {
+        let noAmpersand = title.replace('&', 'and');
+        let noDiacritic = noAmpersand.normalize('NFD')
+                                .replace(/[\u0300-\u036f]/g, "");
+        let noPunct = noDiacritic.replace(/[^\w\s]|_/g, "")
+                                 .replace(/\s+/g, " ");
+        return noPunct.toLowerCase().replaceAll(' ', '-');
+    }
+
+    static camelToKebab = (str) => {
+        return str.split('').map((letter, idx) => {
+          return letter.toUpperCase() === letter
+           ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
+           : letter;
+        }).join('');
     };
 
     constructor(willRequestBooksWithApi) {
@@ -190,7 +198,7 @@ class PageDom {
         this.clearFilterText = document.getElementById('clear-filters');
         this.filterCheckboxPanes = {};
         PageDom.filterCategories.forEach((category) => {
-            let filterClassName = 'filters-' + PageDom.kebabize(category);
+            let filterClassName = 'filters-' + PageDom.camelToKebab(category);
             let filterDom = document.getElementsByClassName(filterClassName)[0];
             let cbDom = filterDom.children[1];
             this.filterCheckboxPanes[category] = cbDom;
@@ -254,7 +262,7 @@ class PageDom {
                     this.renderFilterTags();
                     this.runSearchOnGridItems();
                 });
-                labelDom.classList = 'tag-text';
+                labelDom.classList.add('tag-text');
                 labelDom.innerText = filter;
                 quantityDom.classList.add('tag-text');
                 quantityDom.classList.add('light-text');
@@ -320,11 +328,15 @@ class PageDom {
     inflateModalForBookTitle(title) {
         let book = this.table.getBookWithTitle(title);
         let mTitle = document.getElementsByClassName('m-title')[0];
+        let mCover = document.getElementsByClassName('m-cover')[0];
         let mAuthor = document.getElementsByClassName('m-author')[0];
         let mTagPane = document.getElementsByClassName('m-tags-pane')[0];
+        let mSynopsisSource = document.getElementsByClassName('m-synopsis-source')[0];
         let mSynopsis = document.getElementsByClassName('m-synopsis')[0];
         mTitle.innerText = title;
+        mCover.src = `../assets/book-covers/${PageDom.titleToKebab(title)}.jpg`;
         mAuthor.innerText = book['Author']
+        mSynopsisSource.href = book['Synopsis link'];
         mSynopsis.innerText = book['Synopsis'];
         this.inflateTagPaneDomForTitle(mTagPane, title);
         this.modalContainer.classList.remove('hidden');
@@ -345,7 +357,8 @@ class PageDom {
         rlTextDiv.classList.add('rl-text');
         titleDiv.classList.add('item-title');
         authorDiv.classList.add('item-author');
-        coverImg.src = '../assets/book-covers/like-a-love-story.jpg';
+        // coverImg.src = '../assets/book-covers/like-a-love-story.jpg';
+        coverImg.src = `../assets/book-covers/${PageDom.titleToKebab(title)}.jpg`;
         // TODO: generate bookcover URL, but need to have books named
         // in kebab case or something
         // coverImg.src = `../assets/book-covers/${title}.jpg`;
@@ -446,7 +459,7 @@ class PageDom {
 }
 
 let main = () => {
-    window.pageDom = new PageDom(true);
+    window.pageDom = new PageDom(false);
 };
 
 window.addEventListener('load', main, false);
