@@ -130,8 +130,14 @@ class PageDom {
         }).join('');
     };
 
+    static minGramSize = 4;
+    static maxGramSize = 7;
+
     constructor() {
-        this.searchStore = new FuzzySet();
+        this.searchStoreTitles = new FuzzySet([], true, PageDom.minGramSize,
+                                                PageDom.maxGramSize);
+        this.searchStoreAuthors = new FuzzySet([], true, PageDom.minGramSize,
+                                                PageDom.maxGramSize);
         this.mCloseIcon = document.getElementsByClassName('m-close-icon')[0];
         this.modalContainer = document.getElementById('modal-container');
         this.gridContainer = document.getElementsByClassName('grid-container')[0];
@@ -368,24 +374,23 @@ class PageDom {
         // grid items, whereas filtering renders only those grid items that
         // pass filtering.
         let query = this.searchBar.value;
-        if (query === '') {
+        if (query.length < PageDom.minGramSize) {
             this.gridItems.forEach((gridItem) => {
                 gridItem.classList.remove('hidden');
             });
         }
         else {
-            let resultScorePairs = this.searchStore.get(query, [], 0.33);
-            if (resultScorePairs.length === 0) {
-                // Rather than display nothing, simply do not update if we
-                // don't get any results.
-                return;
-            }
-            let results = resultScorePairs.map(pair => pair[1]);
+            const minScore = 0.1;
+            let titleScorePairs = this.searchStoreTitles.get(query, [], minScore);
+            let authorScorePairs = this.searchStoreAuthors.get(query, [], minScore);
+            let titleResults = titleScorePairs.map(pair => pair[1]);
+            let authorResults = authorScorePairs.map(pair => pair[1]);
             let title, author;
             this.gridItems.forEach((gridItem) => {
                 title = gridItem.children[2].innerText;
                 author = gridItem.children[3].innerText;
-                if (results.contains(title) || results.contains(author)) {
+                if (titleResults.contains(title)
+                    || authorResults.contains(author)) {
                     gridItem.classList.remove('hidden');
                 }
                 else {
@@ -403,8 +408,8 @@ class PageDom {
                         .innerText;
             let author = gridItem.getElementsByClassName('item-author')[0]
                         .innerText;
-            this.searchStore.add(title);
-            this.searchStore.add(author);
+            this.searchStoreTitles.add(title);
+            this.searchStoreAuthors.add(author);
             gridItem.addEventListener('click', (event) => {
                 this.inflateModalForBookTitle(title);
             });
@@ -430,6 +435,7 @@ class PageDom {
             cbDoms.forEach(dom => dom.checked = false);
             this.renderFilterTags();
             this.inflateGrid();
+            this.runSearchOnGridItems();
         });
     }
 }
