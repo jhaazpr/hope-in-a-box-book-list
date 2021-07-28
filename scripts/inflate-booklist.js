@@ -20,6 +20,29 @@ class BookTable {
         });
     }
 
+    applyTitleShorteningToBooks() {
+        this.books.forEach((book) => {
+            book['Title'] = this.getShortTitleForBook(book);
+        });
+    }
+
+    getShortTitleForBook(book) {
+        const adjustments = {
+            'No Voice Too Small: Fourteen Young Americans Making History':
+                'No Voice Too Small',
+            'Rural Voices: 15 Authors Challenge Assumptions about Small-Town America':
+                'Rural Voices',
+            'Dear Ijeawele, or A Feminist Manifesto in Fifteen Suggestions':
+                'Dear Ijeawele',
+            'This Is Our Rainbow: 16 Stories of Her, Him, Them, and Us':
+                'This Is Our Rainbow',
+            'Uncle Bobby\'s Wedding (2020)':
+                'Uncle Booby\'s Wedding'
+        };
+        let title = book['Title'];
+        return adjustments[title] ? adjustments[title] : title;
+    }
+
     getShortAuthorForBook(book) {
         // FIXME: this is a hack--decide on author format
         let longAuthor = book['Author'];
@@ -158,13 +181,14 @@ class PageDom {
     }
 
     setBooksFromJsonText(jsonText) {
-        if (!this.willRequestBooksWithApi) {
-            this.table.books = JSON.parse(jsonText)['books'];
-            this.table.sortBooksByTitle();
-            this.inflateFilters();
-            this.inflateGrid();
-            this.attachUIHandlers();
-        }
+        this.table.books = JSON.parse(jsonText)['books'];
+        // FIXME: we can never shorten book titles if we use html text
+        // as identifiers
+        // this.table.applyTitleShorteningToBooks();
+        this.table.sortBooksByTitle();
+        this.inflateFilters();
+        this.inflateGrid();
+        this.attachUIHandlers();
     }
 
     getFilteredBooks() {

@@ -140,7 +140,6 @@ input[type='checkbox'] {
     float: right;
     width: 80%;
     height: 100%;
-    /* overflow-y: scroll; */
 }
 
 .grid-container {
@@ -155,7 +154,6 @@ input[type='checkbox'] {
     cursor: pointer;
     max-width: 150px;
     height: 400px;
-    overflow-x: scroll;
 }
 
 /* TODO: fix hard-coded values */
