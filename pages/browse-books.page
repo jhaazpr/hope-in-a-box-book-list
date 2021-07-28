@@ -318,7 +318,7 @@ input[type='checkbox'] {
             <div class="filter-list">
             </div>
         </div>
-        <div class="filters-reading-level">
+        <div class="filter-category filters-reading-level">
             <div class="filter-section-top">
                 <img class="up-or-down-icon" src="../assets/up-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">reading level</div>
@@ -326,35 +326,35 @@ input[type='checkbox'] {
             <div class="checkbox-pane">
             </div>
         </div>
-        <div class="filters-representation">
+        <div class="filter-category filters-representation">
             <div class="filter-section-top">
                 <img class="up-or-down-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">representation</div>
             </div>
             <div class="checkbox-pane"></div>
         </div>
-        <div class="filters-themes">
+        <div class="filter-category filters-themes">
             <div class="filter-section-top">
                 <img class="up-or-down-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">themes</div>
             </div>
             <div class="checkbox-pane"></div>
         </div>
-        <div class="filters-format">
+        <div class="filter-category filters-format">
             <div class="filter-section-top">
                 <img class="up-or-down-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">format</div>
             </div>
             <div class="checkbox-pane"></div>
         </div>
-        <div class="filters-included-in">
+        <div class="filter-category filters-included-in">
             <div class="filter-section-top">
                 <img class="up-or-down-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">included in</div>
             </div>
             <div class="checkbox-pane"></div>
         </div>
-        <div class="filters-curriculum-available">
+        <div class="filter-category filters-curriculum-available">
             <div class="filter-section-top">
                 <img class="up-or-down-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">curriculum available</div>
