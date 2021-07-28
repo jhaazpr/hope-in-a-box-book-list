@@ -110,7 +110,7 @@ class PageDom {
     };
 
     get allTags() {
-        return Object.keys(PageDom.filterCategories);
+        return Object.values(PageDom.filterCategories).flat();
     }
 
     static titleToKebab = (title) => {
