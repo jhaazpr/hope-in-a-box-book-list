@@ -150,6 +150,7 @@ class PageDom {
             this.filterCheckboxPanes[category] = cbDom;
         });
         this.table = new BookTable(this);
+        // window.bookJsonText should be loaded from a separate script
         this.setBooksFromJsonText(window.bookJsonText);
     }
 
@@ -163,14 +164,20 @@ class PageDom {
         }
     }
 
-    inflateGrid() {
-        let checkedFilterNames = this.getCheckedFilterNames();
-        this.gridContainer.innerHTML = '';
+    getFilteredBooks() {
+        // TODO: apply AND/OR logic as discussed
         let filteredBooks = this.table.books.filter((book) => {
             let bookFilterResults = checkedFilterNames.map(filterName =>
                 book[filterName]);
             return bookFilterResults.reduce((a, b) => a && b, '1');
         });
+        return filteredBooks;
+    }
+
+    inflateGrid() {
+        let checkedFilterNames = this.getCheckedFilterNames();
+        this.gridContainer.innerHTML = '';
+        let filteredBooks = this.getFilteredBooks();
         filteredBooks.forEach((book) => {
             let title = book['Title'];
             let author = this.table.getShortAuthorForBook(book);
