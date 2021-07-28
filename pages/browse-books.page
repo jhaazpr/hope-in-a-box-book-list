@@ -9,6 +9,21 @@
     link it using Squarespace's <head> code injection.
 -->
 <style>
+
+.preamble {
+    margin-bottom: 36px;
+    text-align: center;
+}
+
+.preamble-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.preamble-subtitle {
+    font-weight: lighter;
+}
 .container {
     position: relative;
     width: 100%;
@@ -238,6 +253,10 @@ input[type='checkbox'] {
     margin-bottom: 10px;
 }
 
+.m-synopsis-source-container {
+    margin-bottom: 10px;
+}
+
 .m-title-row {
     display: flex;
     justify-content: space-between;
@@ -280,7 +299,9 @@ input[type='checkbox'] {
             <div class="m-book-info-col">
                 <div class="m-title-row">
                     <div class="m-title">Title</div>
-                    <button class="m-lesson-plan-btn">click here for lesson plans</button>
+                    <a href="https://hope-box.squarespace.com/take-action">
+                        <button class="m-lesson-plan-btn">click here for lesson plans</button>
+                    </a>
                 </div>
                 <div class="m-header">Author</div>
                 <div class="m-author m-text"></div>
@@ -290,14 +311,34 @@ input[type='checkbox'] {
                 <div class="m-header">Synopsis</div>
                 <div class="m-synopsis m-text">
                 </div>
-                <div>
+                <div class="m-synopsis-source-container">
                     <a class="m-synopsis-source" href="">Source</a>
+                </div>
+                <div class="m-header">
+                    <a class="" href="https://hope-box.squarespace.com/take-action">Click here</a> for lesson plans
+                </div>
+                <div class="m-text">
+                Hope in a Box has developed the nation’s largest library of LGBTQ-inclusive curriculum. Our guides are written by and for educators, tied to Common Core State Standards, and adapted for in-person and virtual learning. We want your feedback -- let us know which books to cover next!
+                </div>
+                <div class="m-header">
+                    <a class="" href="https://www.strandbooks.com/">Click here</a> to buy the book
+                </div>
+                <div class="m-text">
+                Hope in a Box supports LGBTQ-friendly independent bookstores. Follow the link above to purchase this book from Strand Book Store.
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div class="preamble">
+    <div class="preamble-title">
+        Our ultimate list of LGBTQ-inclusive books
+    </div>
+    <div class="preamble-subtitle">
+    Hope in a Box worked with expert teachers and professors from across the country to curate a list of our favorite LGBTQ-inclusive books. This list includes a diverse array of stories, formats, time periods, identities, and reading levels.
+    </div>
+</div>
 <div class="container">
     <div class="menu-pane">
         <input name="search" id="search-bar" type="text" placeholder="Search"/>
