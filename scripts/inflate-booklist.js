@@ -110,10 +110,7 @@ class PageDom {
     };
 
     get allTags() {
-        return PageDom.readingLevelProps
-                .concat(PageDom.formatProps)
-                .concat(PageDom.representationProps)
-                .concat(PageDom.themesProps);
+        return Object.keys(PageDom.filterCategories);
     }
 
     static titleToKebab = (title) => {
@@ -165,18 +162,33 @@ class PageDom {
     }
 
     getFilteredBooks() {
-        // TODO: apply AND/OR logic as discussed
-        return this.table.books;
-        // let filteredBooks = this.table.books.filter((book) => {
-        //     let bookFilterResults = checkedFilterNames.map(filterName =>
-        //         book[filterName]);
-        //     return bookFilterResults.reduce((a, b) => a && b, '1');
-        // });
-        // return filteredBooks;
+        let filtersByCategory = this.getCheckedFilterNamesByCategory();
+        let books = this.table.books.filter((book) => {
+            let bookPassesChecks = true;
+            // AND over different categories
+            Object.keys(filtersByCategory).some((filterName) => {
+                let categoryFilters = filtersByCategory[filterName];
+                if (categoryFilters.length > 0) {
+                    // OR over a category's filters if non-empty
+                    let bookMatchesAtLeastOneCategoryFilter = false;
+                    categoryFilters.forEach((checkedFilter) => {
+                        if (book[checkedFilter]) {
+                            bookMatchesAtLeastOneCategoryFilter = true;
+                        }
+                    });
+                    if (!bookMatchesAtLeastOneCategoryFilter) {
+                        bookPassesChecks = false;
+                        // return true to exit inner Array.some() early
+                        return true;
+                    }
+                }
+            });
+            return bookPassesChecks;
+        });
+        return books;
     }
 
     inflateGrid() {
-        let checkedFilterNames = this.getCheckedFilterNames();
         this.gridContainer.innerHTML = '';
         let filteredBooks = this.getFilteredBooks();
         filteredBooks.forEach((book) => {
@@ -223,16 +235,34 @@ class PageDom {
         return passFilterBooks.length;
     }
 
-    getCheckedFilterNames() {
+    getCheckedFilterNamesFlat() {
+        let categoryNames = Object.keys(PageDom.filterCategories);
         let cbRowDoms = document.getElementsByClassName('checkbox-row');
         cbRowDoms = Array.from(cbRowDoms);
         let checkedCbRowDoms = cbRowDoms.filter(row => row.children[0].checked);
         return checkedCbRowDoms.map(row => row.children[1].innerText);
     }
 
+    getCheckedFilterNamesByCategory() {
+        let filterCategoryDoms = Array.from(document
+                .getElementsByClassName('filter-category'));
+        let checkedFilterNamesPerCategory = filterCategoryDoms.map((fcDom) => {
+            let rows = Array.from(fcDom.children[1].children);
+            let checkedRows = rows.filter(row => row.children[0].checked);
+            let checkedFilterNames = checkedRows.map(row => row.children[1].innerText);
+            return checkedFilterNames
+        });
+        let categoryNames = Object.keys(PageDom.filterCategories);
+        let categoryNamesToCheckedFilters = {};
+        categoryNames.forEach((name, idx) => {
+            categoryNamesToCheckedFilters[name] = checkedFilterNamesPerCategory[idx];
+        });
+        return categoryNamesToCheckedFilters;
+    }
+
     renderFilterTags() {
         this.filterTagList.innerHTML = '';
-        let filterNames = this.getCheckedFilterNames();
+        let filterNames = this.getCheckedFilterNamesFlat();
         let numFiltersTextDom = document.getElementById('num-filters');
         numFiltersTextDom.innerText = `(${filterNames.length})`;
         filterNames.forEach((filterName) => {
