@@ -31,7 +31,7 @@ class BookTable {
 
     getReadingLevelForBook(book) {
         let level = 'Unknown level';
-        PageDom.readingLevelProps.forEach((prop) => {
+        PageDom.filterCategories['readingLevel'].forEach((prop) => {
             if (book[prop] !== '') {
                 level = prop;
             }
@@ -59,55 +59,55 @@ class PageDom {
         'includedIn', 'curriculumAvailable'
     ];
 
-    static formatProps = [
-        'Picture book',
-        'Chapter book',
-        'Graphic novel',
-        'Non-fiction',
-        'Anthology',
-        'Poetry',
-        'Scripts & plays'
-    ];
-    static representationProps = [
-        'Lesbian',
-        'Gay',
-        'Bisexual & Pansexual',
-        'Trans & Nonbinary',
-        'Queer+',
-        'Small Town, Rural & Heartland',
-        'Black, Caribbean, & African Diaspora',
-        'Asian & Asian Diaspora',
-        'Latino & Hispanic',
-        'Native American & Indigenous',
-        'Diverse ensemble',
-        'Ability'
-    ];
-    static themesProps = [
-        'Coming out',
-        'Religion & Spirituality',
-        'Diverse family structure',
-        'Relationships: Family',
-        'Relationships: Love',
-        'Relationships: Friends',
-        'Relationships: Community',
-        'Politics, Society, & Activism',
-        'Classics'
-    ];
-    static readingLevelProps = [
-        'Early elementary',
-        'Late elementary',
-        'Middle school',
-        'Early high school',
-        'Late high school'
-    ];
-
-    static includedInProps = [
-        'Elementary', 'Middle', 'High'
-    ];
-
-    static curriculumAvailableProps = [
-        'Yes', 'No'
-    ];
+    static filterCategories = {
+        format: [
+            'Picture book',
+            'Chapter book',
+            'Graphic novel',
+            'Non-fiction',
+            'Anthology',
+            'Poetry',
+            'Scripts & plays'
+        ],
+        representation: [
+            'Lesbian',
+            'Gay',
+            'Bisexual & Pansexual',
+            'Trans & Nonbinary',
+            'Queer+',
+            'Small Town, Rural & Heartland',
+            'Black, Caribbean, & African Diaspora',
+            'Asian & Asian Diaspora',
+            'Latino & Hispanic',
+            'Native American & Indigenous',
+            'Diverse ensemble',
+            'Ability'
+        ],
+        themes: [
+            'Coming out',
+            'Religion & Spirituality',
+            'Diverse family structure',
+            'Relationships: Family',
+            'Relationships: Love',
+            'Relationships: Friends',
+            'Relationships: Community',
+            'Politics, Society, & Activism',
+            'Classics'
+        ],
+        readingLevel: [
+            'Early elementary',
+            'Late elementary',
+            'Middle school',
+            'Early high school',
+            'Late high school'
+        ],
+        includedIn: [
+            'Elementary', 'Middle', 'High'
+        ],
+        curriculumAvailable: [
+            'Yes', 'No'
+        ]
+    };
 
     get allTags() {
         return PageDom.readingLevelProps
@@ -143,7 +143,7 @@ class PageDom {
         this.filterTagList = document.getElementsByClassName('filter-list')[0];
         this.clearFilterText = document.getElementById('clear-filters');
         this.filterCheckboxPanes = {};
-        PageDom.filterCategories.forEach((category) => {
+        Object.keys(PageDom.filterCategories).forEach((category) => {
             let filterClassName = 'filters-' + PageDom.camelToKebab(category);
             let filterDom = document.getElementsByClassName(filterClassName)[0];
             let cbDom = filterDom.children[1];
@@ -166,12 +166,13 @@ class PageDom {
 
     getFilteredBooks() {
         // TODO: apply AND/OR logic as discussed
-        let filteredBooks = this.table.books.filter((book) => {
-            let bookFilterResults = checkedFilterNames.map(filterName =>
-                book[filterName]);
-            return bookFilterResults.reduce((a, b) => a && b, '1');
-        });
-        return filteredBooks;
+        return this.table.books;
+        // let filteredBooks = this.table.books.filter((book) => {
+        //     let bookFilterResults = checkedFilterNames.map(filterName =>
+        //         book[filterName]);
+        //     return bookFilterResults.reduce((a, b) => a && b, '1');
+        // });
+        // return filteredBooks;
     }
 
     inflateGrid() {
@@ -191,8 +192,7 @@ class PageDom {
         Object.entries(this.filterCheckboxPanes).forEach((kv) => {
             let category = kv[0];
             let categoryCbPane = kv[1];
-            let categoryPropName = category + 'Props'
-            let filters = PageDom[categoryPropName];
+            let filters = PageDom.filterCategories[category];
             filters.forEach((filter) => {
                 let rowDom = document.createElement('div');
                 let cbDom = document.createElement('input');
