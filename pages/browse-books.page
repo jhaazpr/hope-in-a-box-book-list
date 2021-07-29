@@ -92,7 +92,7 @@ body {
 }
 
 .light-text {
-    color: #aaaaaa;
+    color: #666;
     font-size: 13px;
     font-weight: lighter;
 }
@@ -123,7 +123,7 @@ body {
 }
 
 .tag-text.light-text {
-    color: #aaaaaa;
+    color: #666;
 }
 
 .filter-section-top {
@@ -133,7 +133,7 @@ body {
 .filter-section-top-text {
     font-variant: small-caps;
     font-weight: normal;
-    color: #aaaaaa;
+    color: #666;
     display: inline-block;
 }
 
@@ -358,7 +358,7 @@ input[type='checkbox'] {
 </div>
 <div class="container">
     <div class="menu-pane">
-        <input name="search" id="search-bar" type="text" placeholder="Search"/>
+        <input name="search" id="search-bar" type="text" title="Search for book titles and authors" placeholder="Search"/>
         <div class="curriculum-note">
             <img class="heart-icon" src="../assets/heart-icon.png" alt="heart icon">
             <div class="light-text">Curriculum is available</div>

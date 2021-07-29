@@ -247,8 +247,11 @@ class PageDom {
                     this.renderFilterTags();
                     this.runSearchOnGridItems();
                 });
+                let cbId = `checkbox-${PageDom.titleToKebab(filter)}`;
+                cbDom.id = cbId;
                 labelDom.classList.add('tag-text');
                 labelDom.innerText = filter;
+                labelDom.htmlFor = cbId;
                 quantityDom.classList.add('tag-text');
                 quantityDom.classList.add('light-text');
                 quantityDom.innerText = `(${this.countItemsWithFilter(filter)})`;
@@ -371,6 +374,7 @@ class PageDom {
         authorDiv.classList.add('item-author');
         // coverImg.src = '../assets/book-covers/like-a-love-story.jpg';
         coverImg.src = `../assets/book-covers/${PageDom.titleToKebab(title)}.jpg`;
+        coverImg.alt = `Cover for ${title}`;
         // TODO: generate bookcover URL, but need to have books named
         // in kebab case or something
         // coverImg.src = `../assets/book-covers/${title}.jpg`;
