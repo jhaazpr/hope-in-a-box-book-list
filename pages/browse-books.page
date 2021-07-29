@@ -15,6 +15,10 @@ body {
     color: #222;
 }
 
+#modal-content a {
+    font-style: italic;
+}
+
 .no-scroll {
     overflow: hidden;
 }
@@ -31,7 +35,7 @@ body {
 .preamble-title {
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 36px;
 }
 
 .preamble-subtitle {
@@ -87,9 +91,14 @@ body {
     float: right;
 }
 
+.curriculum-note {
+    padding: 5px 0 10px 0;
+}
+
 .curriculum-note > .heart-icon {
     display: inline-block;
-    margin-right: 15px;
+    margin-right: 7.5px;
+    transform: translateY(5px);
 }
 
 .curriculum-note > .light-text {
@@ -251,7 +260,7 @@ input[type='checkbox'] {
     font-size: 12px;
     border: 1px solid white;
     height: 70%;
-    width: 70%;
+    width: 50%;
     margin: 5% auto 5% auto;
     overflow-y: scroll;
     display: flex;
@@ -286,6 +295,7 @@ input[type='checkbox'] {
     color: white;
     letter-spacing: 2px;
     font-weight: lighter;
+    font-style: normal;
     filter: drop-shadow(2px 2px 2px #aaa);
 }
 
