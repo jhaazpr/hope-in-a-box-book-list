@@ -225,7 +225,8 @@ class PageDom {
             let title = book['Title'];
             let author = this.table.getShortAuthorForBook(book);
             let readingLevel = this.table.getReadingLevelForBook(book);
-            this.addGridItem(title, author, readingLevel);
+            let curriculumAvailable = !!book['Yes'];
+            this.addGridItem(title, author, readingLevel, curriculumAvailable);
         });
         this.attachGridItemHandlers();
     }
@@ -355,7 +356,7 @@ class PageDom {
         this.modalContainer.classList.remove('hidden');
     }
 
-    addGridItem(title, author, readingLevel) {
+    addGridItem(title, author, readingLevel, curriculumAvailable) {
         let newGridItem = document.createElement('div');
         let coverContainer = document.createElement('div');
         let coverImg = document.createElement('img');
@@ -364,8 +365,6 @@ class PageDom {
         let rlTextDiv = document.createElement('div');
         let titleDiv = document.createElement('div');
         let authorDiv = document.createElement('div');
-        let heartContainer = document.createElement('div');
-        let heartImg = document.createElement('img');
         newGridItem.classList.add('grid-item');
         coverContainer.classList.add('cover-container');
         coverImg.classList.add('book-cover');
@@ -374,23 +373,27 @@ class PageDom {
         rlTextDiv.classList.add('rl-text');
         titleDiv.classList.add('item-title');
         authorDiv.classList.add('item-author');
-        heartImg.classList.add('curriculum-icon-img');
-        heartContainer.classList.add('curriculum-icon-container');
         coverImg.src = `../assets/book-covers/${PageDom.titleToKebab(title)}.jpg`;
         coverImg.alt = `Cover for ${title}`;
         rlTextDiv.innerText = readingLevel.toLowerCase();
         titleDiv.innerText = title;
         authorDiv.innerText = author;
-        heartImg.src = '../assets/heart-icon.png';
         coverContainer.appendChild(coverImg);
-        heartContainer.appendChild(heartImg);
-        coverContainer.appendChild(heartContainer);
         newGridItem.appendChild(coverContainer);
         newGridItem.appendChild(readingLevelDiv);
         readingLevelDiv.appendChild(stripeDiv);
         readingLevelDiv.appendChild(rlTextDiv);
         newGridItem.appendChild(titleDiv);
         newGridItem.appendChild(authorDiv);
+        if (curriculumAvailable) {
+            let heartContainer = document.createElement('div');
+            let heartImg = document.createElement('img');
+            heartImg.classList.add('curriculum-icon-img');
+            heartContainer.classList.add('curriculum-icon-container');
+            heartImg.src = '../assets/heart-icon.png';
+            heartContainer.appendChild(heartImg);
+            coverContainer.appendChild(heartContainer);
+        }
         this.gridContainer.appendChild(newGridItem);
     }
 
