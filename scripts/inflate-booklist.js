@@ -388,10 +388,15 @@ class PageDom {
     }
 
     inflateTagPaneDomForTitle(tagPaneDom, title) {
+        let adjustments = {
+            Yes: 'Curriculum is available',
+            No: 'Curriculum not available yet'
+        };
         tagPaneDom.innerHTML = '';
         let book = this.table.getBookWithTitle(title);
         let allTags = this.allTags;
         let tags = allTags.filter(tag => book[tag]);
+        tags = tags.map(tag => adjustments[tag] ? adjustments[tag] : tag);
         tags.forEach((tagText) => {
             let newTag = document.createElement('div');
             newTag.classList.add('m-tag');
