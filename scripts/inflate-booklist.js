@@ -220,6 +220,7 @@ class PageDom {
                                                 PageDom.maxGramSize);
         this.mCloseIcon = document.getElementsByClassName('m-close-icon')[0];
         this.modalContainer = document.getElementById('modal-container');
+        this.modalContentDom = document.getElementById('modal-content');
         this.gridContainer = document.getElementsByClassName('grid-container')[0];
         this.gridItems = document.getElementsByClassName('grid-item');
         this.searchBar = document.getElementById('search-bar');
@@ -527,10 +528,42 @@ class PageDom {
     }
 
     attachUIHandlers() {
-        // Hide modal on clicking close icon.
-        this.mCloseIcon.addEventListener('click', (event) => {
+        const hideModal = () => {
             this.modalContainer.classList.add('hidden');
             document.getElementsByTagName('body')[0].classList.remove('no-scroll');
+        };
+        // Hide modal on clicking close icon.
+        this.mCloseIcon.addEventListener('click', (event) => {
+            event.stopPropagation();
+            hideModal();
+        });
+        // Hide modal on clicking outside the box
+        this.modalContentDom.addEventListener('click', (event) => {
+            // Stop clicks on content from bubbling up and triggering the
+            // click-outside-to-close handler
+            event.stopPropagation();
+        });
+        this.modalContainer.addEventListener('click', (event) => {
+            hideModal();
+        });
+        // Hide modal on pressing escape. Note that we need 3 listeners with
+        // preventDefault because Squarespace attempts to log in on pressing
+        // escape. FIXME: this still isn't preventing login for some reason.
+        window.addEventListener('keyup', (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+                hideModal();
+            }
+        });
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+            }
+        });
+        window.addEventListener('keypress', (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault();
+            }
         });
         // Attach fuzzy search functionality.
         this.searchBar.value = '';
