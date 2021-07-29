@@ -28,7 +28,7 @@ body {
 }
 
 .preamble {
-    margin-bottom: 36px;
+    margin-bottom: 48px;
     text-align: center;
 }
 

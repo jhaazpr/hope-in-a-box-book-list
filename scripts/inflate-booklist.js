@@ -103,6 +103,9 @@ class BookTable {
         if (!longAuthor.includes('by')) {
             return longAuthor;
         }
+        else if (longAuthor.includes('Edited by')) {
+            return longAuthor.slice(10);
+        }
         return longAuthor.split(',')[0].slice(3);
     }
 
