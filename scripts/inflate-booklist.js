@@ -405,10 +405,16 @@ class PageDom {
         let tags = allTags.filter(tag => book[tag]);
         tags = tags.map(tag => adjustments[tag] ? adjustments[tag] : tag);
         tags.forEach((tagText) => {
-            let newTag = document.createElement('div');
-            newTag.classList.add('m-tag');
-            newTag.innerText = tagText;
-            tagPaneDom.appendChild(newTag);
+            let newTagDom = document.createElement('div');
+            let stripe = document.createElement('div');
+            let tagTextDom = document.createElement('div');
+            newTagDom.classList.add('m-tag');
+            stripe.classList.add('stripe');
+            tagTextDom.classList.add('m-tag-text');
+            tagTextDom.innerText = tagText;
+            newTagDom.appendChild(stripe);
+            newTagDom.appendChild(tagTextDom);
+            tagPaneDom.appendChild(newTagDom);
         });
     }
 

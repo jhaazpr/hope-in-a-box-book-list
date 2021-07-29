@@ -172,7 +172,7 @@ input[type='checkbox'] {
     width: 3px;
     display: inline-block;
     transform: translateY(2px);
-    margin-right: 5px;
+    margin-right: 7.5px;
 }
 
 .rl-text {
@@ -321,6 +321,11 @@ input[type='checkbox'] {
 
 .m-tag {
     margin-right: 20px;
+}
+
+.m-tag-text {
+    font-weight: lighter;
+    display: inline-block;
 }
 
 </style>
