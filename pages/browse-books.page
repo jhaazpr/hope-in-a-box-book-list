@@ -222,6 +222,7 @@ input[type='checkbox'] {
 .cover-container {
     height: 250px;
     position: relative;
+    transition: transform 0.15s;
 }
 
 .cover-container:hover {
