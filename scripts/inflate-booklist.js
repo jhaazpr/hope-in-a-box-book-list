@@ -364,6 +364,8 @@ class PageDom {
         let rlTextDiv = document.createElement('div');
         let titleDiv = document.createElement('div');
         let authorDiv = document.createElement('div');
+        let heartContainer = document.createElement('div');
+        let heartImg = document.createElement('img');
         newGridItem.classList.add('grid-item');
         coverContainer.classList.add('cover-container');
         coverImg.classList.add('book-cover');
@@ -372,16 +374,17 @@ class PageDom {
         rlTextDiv.classList.add('rl-text');
         titleDiv.classList.add('item-title');
         authorDiv.classList.add('item-author');
-        // coverImg.src = '../assets/book-covers/like-a-love-story.jpg';
+        heartImg.classList.add('curriculum-icon-img');
+        heartContainer.classList.add('curriculum-icon-container');
         coverImg.src = `../assets/book-covers/${PageDom.titleToKebab(title)}.jpg`;
         coverImg.alt = `Cover for ${title}`;
-        // TODO: generate bookcover URL, but need to have books named
-        // in kebab case or something
-        // coverImg.src = `../assets/book-covers/${title}.jpg`;
-        rlTextDiv.innerText = readingLevel;
+        rlTextDiv.innerText = readingLevel.toLowerCase();
         titleDiv.innerText = title;
         authorDiv.innerText = author;
+        heartImg.src = '../assets/heart-icon.png';
         coverContainer.appendChild(coverImg);
+        heartContainer.appendChild(heartImg);
+        coverContainer.appendChild(heartContainer);
         newGridItem.appendChild(coverContainer);
         newGridItem.appendChild(readingLevelDiv);
         readingLevelDiv.appendChild(stripeDiv);
