@@ -480,6 +480,31 @@ class PageDom {
         this.searchBar.addEventListener('input', (event) => {
             this.runSearchOnGridItems();
         });
+        // Attach filter collapsing functionality
+        let collapseIcons = Array.from(document.getElementsByClassName('collapse-icon'));
+        collapseIcons.forEach((icon) => {
+            icon.addEventListener('click', (event) => {
+                if (icon.dataset.toggled === 'true') {
+                    icon.src = '../assets/down-icon.png';
+                    icon.dataset.toggled = false;
+                    let thisCbPane = icon.parentElement.nextElementSibling;
+                    thisCbPane.classList.add('hidden');
+                }
+                else {
+                    collapseIcons.forEach(icon => {
+                        icon.src = '../assets/down-icon.png';
+                        icon.dataset.toggled = false;
+                    });
+                    icon.src = '../assets/up-icon.png';
+                    icon.dataset.toggled = true;
+                    let allCbPanes = document.getElementsByClassName('checkbox-pane');
+                    allCbPanes = Array.from(allCbPanes);
+                    allCbPanes.forEach(pane => pane.classList.add('hidden'));
+                    let thisCbPane = icon.parentElement.nextElementSibling;
+                    thisCbPane.classList.remove('hidden');
+                }
+            });
+        });
         // Clear all filters
         // TODO: rather than clear all checkboxes directly, call
         // removeFilter() without re-rendering every time
