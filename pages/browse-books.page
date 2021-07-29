@@ -238,8 +238,18 @@ input[type='checkbox'] {
 }
 
 .m-lesson-plan-btn {
-    height: 30px;
     transform: translateY(-2.5px);
+    font-variant: small-caps;
+    width: 130px;
+    line-height: 12px;
+    height: 30px;
+    border-radius: 50px;
+    background-color: #1b1bf7;
+    border: none;
+    color: white;
+    letter-spacing: 2px;
+    font-weight: lighter;
+    filter: drop-shadow(2px 2px 2px #aaa);
 }
 
 .m-cover-col {
@@ -298,7 +308,7 @@ input[type='checkbox'] {
                 <div class="m-title-row">
                     <div class="m-title">Title</div>
                     <a href="https://hope-box.squarespace.com/take-action">
-                        <button class="m-lesson-plan-btn">click here for lesson plans</button>
+                        <button class="m-lesson-plan-btn">click here for <b>lesson plans</b></button>
                     </a>
                 </div>
                 <div class="m-header">Author</div>
