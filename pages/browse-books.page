@@ -10,6 +10,15 @@
 -->
 <style>
 
+body {
+    background-color: #fff;
+    color: #222;
+}
+
+.title-font {
+    font-family: Montserrat
+}
+
 .preamble {
     margin-bottom: 36px;
     text-align: center;
@@ -306,29 +315,29 @@ input[type='checkbox'] {
             </div>
             <div class="m-book-info-col">
                 <div class="m-title-row">
-                    <div class="m-title">Title</div>
+                    <div class="m-title title-font">Title</div>
                     <a href="https://hope-box.squarespace.com/take-action">
                         <button class="m-lesson-plan-btn">click here for <b>lesson plans</b></button>
                     </a>
                 </div>
-                <div class="m-header">Author</div>
+                <div class="m-header title-font">Author</div>
                 <div class="m-author m-text"></div>
-                <div class="m-header">Tags</div>
+                <div class="m-header title-font">Tags</div>
                 <div class="m-tags-pane">
                 </div>
-                <div class="m-header">Synopsis</div>
+                <div class="m-header title-font">Synopsis</div>
                 <div class="m-synopsis m-text">
                 </div>
                 <div class="m-synopsis-source-container">
                     <a class="m-synopsis-source" href="">Source</a>
                 </div>
-                <div class="m-header">
+                <div class="m-header title-font">
                     <a class="" href="https://hope-box.squarespace.com/take-action">Click here</a> for lesson plans
                 </div>
                 <div class="m-text">
                 Hope in a Box has developed the nation’s largest library of LGBTQ-inclusive curriculum. Our guides are written by and for educators, tied to Common Core State Standards, and adapted for in-person and virtual learning. We want your feedback -- let us know which books to cover next!
                 </div>
-                <div class="m-header">
+                <div class="m-header title-font">
                     <a class="" href="https://www.strandbooks.com/">Click here</a> to buy the book
                 </div>
                 <div class="m-text">
@@ -340,7 +349,7 @@ input[type='checkbox'] {
 </div>
 
 <div class="preamble">
-    <div class="preamble-title">
+    <div class="preamble-title title-font">
         Our ultimate list of LGBTQ-inclusive books
     </div>
     <div class="preamble-subtitle">
