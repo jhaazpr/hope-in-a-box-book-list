@@ -361,7 +361,7 @@ input[type='checkbox'] {
             <div class="m-book-info-col">
                 <div class="m-title-row">
                     <div class="m-title title-font">Title</div>
-                    <a href="https://hope-box.squarespace.com/take-action">
+                    <a href="https://hope-box.squarespace.com/take-action" target="_blank" rel="noopener noreferrer">
                         <button class="m-lesson-plan-btn">click here for <b>lesson plans</b></button>
                     </a>
                 </div>
@@ -374,19 +374,19 @@ input[type='checkbox'] {
                 <div class="m-synopsis m-text">
                 </div>
                 <div class="m-synopsis-source-container">
-                    <a class="m-synopsis-source" href="">Source</a>
+                    (<a class="m-synopsis-source" href="" target="_blank" rel="noopener noreferrer">Source</a>)
                 </div>
                 <div class="m-header title-font">
-                    <a class="" href="https://hope-box.squarespace.com/take-action">Click here</a> for lesson plans
+                    <a class="" href="https://hope-box.squarespace.com/take-action" target="_blank" rel="noopener noreferrer">Click here</a> for lesson plans
                 </div>
                 <div class="m-text">
                 Hope in a Box has developed the nation’s largest library of LGBTQ-inclusive curriculum. Our guides are written by and for educators, tied to Common Core State Standards, and adapted for in-person and virtual learning. We want your feedback -- let us know which books to cover next!
                 </div>
                 <div class="m-header title-font">
-                    <a class="" href="https://www.strandbooks.com/">Click here</a> to buy the book
+                    <a class="" href="https://www.strandbooks.com/" target="_blank" rel="noopener noreferrer">Click here</a> to buy the book
                 </div>
                 <div class="m-text">
-                Hope in a Box supports LGBTQ-friendly independent bookstores. Follow the link above to purchase this book from Strand Book Store.
+                Hope in a Box supports LGBTQ-friendly independent bookstores. Follow the link above to purchase this book from the Strand Book Store.
                 </div>
             </div>
         </div>
