@@ -15,6 +15,10 @@ body {
     color: #222;
 }
 
+.no-scroll {
+    overflow: hidden;
+}
+
 .title-font {
     font-family: Montserrat
 }

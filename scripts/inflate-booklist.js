@@ -354,6 +354,7 @@ class PageDom {
         }
         this.inflateTagPaneDomForTitle(mTagPane, title);
         this.modalContainer.classList.remove('hidden');
+        document.getElementsByTagName('body')[0].classList.add('no-scroll');
     }
 
     addGridItem(title, author, readingLevel, curriculumAvailable) {
@@ -472,6 +473,7 @@ class PageDom {
         // Hide modal on clicking close icon.
         this.mCloseIcon.addEventListener('click', (event) => {
             this.modalContainer.classList.add('hidden');
+            document.getElementsByTagName('body')[0].classList.remove('no-scroll');
         });
         // Attach fuzzy search functionality.
         this.searchBar.value = '';
