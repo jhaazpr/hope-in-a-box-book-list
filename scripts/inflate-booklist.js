@@ -336,11 +336,18 @@ class PageDom {
         let mTagPane = document.getElementsByClassName('m-tags-pane')[0];
         let mSynopsisSource = document.getElementsByClassName('m-synopsis-source')[0];
         let mSynopsis = document.getElementsByClassName('m-synopsis')[0];
+        let mCurriculumBtn = document.getElementsByClassName('m-lesson-plan-btn')[0];
         mTitle.innerText = title;
         mCover.src = `../assets/book-covers/${PageDom.titleToKebab(title)}.jpg`;
         mAuthor.innerText = book['Author']
         mSynopsisSource.href = book['Synopsis link'];
         mSynopsis.innerText = book['Synopsis'];
+        if (book['Yes']) {
+            mCurriculumBtn.classList.remove('hidden');
+        }
+        else {
+            mCurriculumBtn.classList.add('hidden');
+        }
         this.inflateTagPaneDomForTitle(mTagPane, title);
         this.modalContainer.classList.remove('hidden');
     }
