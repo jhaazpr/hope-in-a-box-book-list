@@ -20,6 +20,60 @@ class BookTable {
         });
     }
 
+    sortBooksByLevelThenTitle() {
+        let bins = {
+            'Early elementary': [],
+            'Late elementary': [],
+            'Middle school': [],
+            'Early high school': [],
+            'Late high school': []
+        };
+        let sortedBins = {
+            'Early elementary': [],
+            'Late elementary': [],
+            'Middle school': [],
+            'Early high school': [],
+            'Late high school': []
+        };
+        this.books.forEach((book) => {
+            if (book['Early elementary']) {
+                bins['Early elementary'].push(book);
+            }
+            if (book['Late elementary']) {
+                bins['Late elementary'].push(book);
+            }
+            if (book['Middle school']) {
+                bins['Middle school'].push(book);
+            }
+            if (book['Early high school']) {
+                bins['Early high school'].push(book);
+            }
+            if (book['Late high school']) {
+                bins['Late high school'].push(book);
+            }
+        });
+        Object.keys(bins).forEach((level) => {
+            let bin = bins[level];
+            sortedBins[level] = bin.sort((a, b) => {
+                if (a['Title'] < b['Title']) {
+                    return -1;
+                }
+                else if (a['Title'] > b['Title']) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            });
+        });
+        let finalList = sortedBins['Late high school']
+            .concat(sortedBins['Early high school'])
+            .concat(sortedBins['Middle school'])
+            .concat(sortedBins['Late elementary'])
+            .concat(sortedBins['Early elementary']);
+        this.books = finalList;
+    }
+
     applyTitleShorteningToBooks() {
         this.books.forEach((book) => {
             book['Title'] = this.getShortTitleForBook(book);
@@ -185,7 +239,7 @@ class PageDom {
         // FIXME: we can never shorten book titles if we use html text
         // as identifiers
         // this.table.applyTitleShorteningToBooks();
-        this.table.sortBooksByTitle();
+        this.table.sortBooksByLevelThenTitle();
         this.inflateFilters();
         this.inflateGrid();
         this.attachUIHandlers();
