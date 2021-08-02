@@ -571,21 +571,23 @@ class PageDom {
         });
         // Attach filter collapsing functionality
         let collapseIcons = Array.from(document.getElementsByClassName('collapse-icon'));
-        collapseIcons.forEach((icon) => {
-            icon.addEventListener('click', (event) => {
-                if (icon.dataset.toggled === 'true') {
+        let filterTops = Array.from(document.getElementsByClassName('filter-section-top'));
+        filterTops.forEach((filterTop) => {
+            filterTop.addEventListener('click', (event) => {
+                let icon = filterTop.children[0];
+                if (filterTop.dataset.toggled === 'true') {
+                    filterTop.dataset.toggled = false;
                     icon.src = '../assets/down-icon.png';
-                    icon.dataset.toggled = false;
                     let thisCbPane = icon.parentElement.nextElementSibling;
                     thisCbPane.classList.add('hidden');
                 }
                 else {
                     collapseIcons.forEach(icon => {
+                        filterTop.dataset.toggled = false;
                         icon.src = '../assets/down-icon.png';
-                        icon.dataset.toggled = false;
                     });
+                    filterTop.dataset.toggled = true;
                     icon.src = '../assets/up-icon.png';
-                    icon.dataset.toggled = true;
                     let allCbPanes = document.getElementsByClassName('checkbox-pane');
                     allCbPanes = Array.from(allCbPanes);
                     allCbPanes.forEach(pane => pane.classList.add('hidden'));

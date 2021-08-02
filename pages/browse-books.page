@@ -142,6 +142,9 @@ body {
 
 .filter-section-top {
     margin-bottom: 10px;
+    cursor: pointer;
+    max-width: fit-content;
+    max-width: -moz-fit-content;
 }
 
 .filter-section-top-text {
@@ -422,47 +425,47 @@ input[type='checkbox'] {
             </div>
         </div>
         <div class="filter-category filters-reading-level">
-            <div class="filter-section-top">
+            <div class="filter-section-top" data-toggled="false">
                 <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">reading level</div>
             </div>
-            <div class="checkbox-pane hidden" data-toggled="false">
+            <div class="checkbox-pane hidden">
             </div>
         </div>
         <div class="filter-category filters-representation">
-            <div class="filter-section-top">
+            <div class="filter-section-top" data-toggled="false">
                 <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">representation</div>
             </div>
-            <div class="checkbox-pane hidden" data-toggled="false"></div>
+            <div class="checkbox-pane hidden"></div>
         </div>
-        <div class="filter-category filters-themes">
+        <div class="filter-category filters-themes" data-toggled="false">
             <div class="filter-section-top">
                 <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">themes</div>
             </div>
-            <div class="checkbox-pane hidden" data-toggled="false"></div>
+            <div class="checkbox-pane hidden"></div>
         </div>
-        <div class="filter-category filters-format">
+        <div class="filter-category filters-format" data-toggled="false">
             <div class="filter-section-top">
                 <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">format</div>
             </div>
-            <div class="checkbox-pane hidden data-toggled="false""></div>
+            <div class="checkbox-pane hidden"></div>
         </div>
-        <div class="filter-category filters-included-in">
+        <div class="filter-category filters-included-in" data-toggled="false">
             <div class="filter-section-top">
                 <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">included in</div>
             </div>
-            <div class="checkbox-pane hidden" data-toggled="false"></div>
+            <div class="checkbox-pane hidden"></div>
         </div>
-        <div class="filter-category filters-curriculum-available">
+        <div class="filter-category filters-curriculum-available" data-toggled="false">
             <div class="filter-section-top">
                 <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
                 <div class="filter-section-top-text">curriculum available</div>
             </div>
-            <div class="checkbox-pane hidden" data-toggled="false"></div>
+            <div class="checkbox-pane hidden"></div>
         </div>
     </div>
     <div class="results-pane">
