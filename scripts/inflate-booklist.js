@@ -315,7 +315,7 @@ class PageDom {
                 quantityDom.innerText = `(${this.countItemsWithFilter(filter)})`;
                 rowDom.appendChild(cbDom);
                 rowDom.appendChild(labelDom);
-                rowDom.appendChild(quantityDom);
+                labelDom.appendChild(quantityDom);
                 categoryCbPane.appendChild(rowDom);
             });
         });

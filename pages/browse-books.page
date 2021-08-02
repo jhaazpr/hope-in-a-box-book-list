@@ -159,6 +159,12 @@ body {
 
 input[type='checkbox'] {
     margin-right: 5px;
+    transform: translateY(5px);
+}
+
+.checkbox-row {
+    display: flex;
+    align-items: start;
 }
 
 .checkbox-pane {
