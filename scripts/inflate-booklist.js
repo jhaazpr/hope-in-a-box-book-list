@@ -110,7 +110,7 @@ class BookTable {
 
     getReadingLevelForBook(book) {
         let level = 'Unknown level';
-        PageDom.filterCategories['readingLevel'].forEach((prop) => {
+        this.pageDom.filterCategories['readingLevel'].forEach((prop) => {
             if (book[prop] !== '') {
                 level = prop;
             }
@@ -133,94 +133,72 @@ class BookTable {
 
 class PageDom {
 
-    static filterCategories = [
-        'readingLevel', 'format', 'representation', 'themes',
-        'includedIn', 'curriculumAvailable'
-    ];
-
-    static filterCategories = {
-        format: [
-            'Picture book',
-            'Chapter book',
-            'Graphic novel',
-            'Non-fiction',
-            'Anthology',
-            'Poetry',
-            'Scripts & plays'
-        ],
-        representation: [
-            'Lesbian',
-            'Gay',
-            'Bisexual & Pansexual',
-            'Trans & Nonbinary',
-            'Queer+',
-            'Small Town, Rural & Heartland',
-            'Black, Caribbean, & African Diaspora',
-            'Asian & Asian Diaspora',
-            'Latino & Hispanic',
-            'Native American & Indigenous',
-            'Diverse ensemble',
-            'Ability'
-        ],
-        themes: [
-            'Coming out',
-            'Religion & Spirituality',
-            'Diverse family structure',
-            'Relationships: Family',
-            'Relationships: Love',
-            'Relationships: Friends',
-            'Relationships: Community',
-            'Politics, Society, & Activism',
-            'Classics'
-        ],
-        readingLevel: [
-            'Early elementary',
-            'Late elementary',
-            'Middle school',
-            'Early high school',
-            'Late high school'
-        ],
-        includedIn: [
-            'Elementary', 'Middle', 'High'
-        ],
-        curriculumAvailable: [
-            'Yes', 'No'
-        ]
-    };
-
-    get allTags() {
-        return Object.values(PageDom.filterCategories).flat();
-    }
-
-    static titleToKebab = (title) => {
-        let noAmpersand = title.replace('&', 'and');
-        let noDiacritic = noAmpersand.normalize('NFD')
-                                .replace(/[\u0300-\u036f]/g, "");
-        let noPunct = noDiacritic.replace(/[^\w\s]|_/g, "")
-                                 .replace(/\s+/g, " ");
-        return noPunct.toLowerCase().replaceAll(' ', '-');
-    }
-
-    static camelToKebab = (str) => {
-        return str.split('').map((letter, idx) => {
-          return letter.toUpperCase() === letter
-           ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
-           : letter;
-        }).join('');
-    };
-
-    static minGramSize = 4;
-    static maxGramSize = 7;
-
-    static loadTimeoutMs = 5000;
-
     constructor() {
+        this.minGramSize = 4;
+        this.maxGramSize = 7;
+
+        this.loadTimeoutMs = 5000;
+        this.filterCategories = [
+            'readingLevel', 'format', 'representation', 'themes',
+            'includedIn', 'curriculumAvailable'
+        ];
+
+        this.filterCategories = {
+            format: [
+                'Picture book',
+                'Chapter book',
+                'Graphic novel',
+                'Non-fiction',
+                'Anthology',
+                'Poetry',
+                'Scripts & plays'
+            ],
+            representation: [
+                'Lesbian',
+                'Gay',
+                'Bisexual & Pansexual',
+                'Trans & Nonbinary',
+                'Queer+',
+                'Small Town, Rural & Heartland',
+                'Black, Caribbean, & African Diaspora',
+                'Asian & Asian Diaspora',
+                'Latino & Hispanic',
+                'Native American & Indigenous',
+                'Diverse ensemble',
+                'Ability'
+            ],
+            themes: [
+                'Coming out',
+                'Religion & Spirituality',
+                'Diverse family structure',
+                'Relationships: Family',
+                'Relationships: Love',
+                'Relationships: Friends',
+                'Relationships: Community',
+                'Politics, Society, & Activism',
+                'Classics'
+            ],
+            readingLevel: [
+                'Early elementary',
+                'Late elementary',
+                'Middle school',
+                'Early high school',
+                'Late high school'
+            ],
+            includedIn: [
+                'Elementary', 'Middle', 'High'
+            ],
+            curriculumAvailable: [
+                'Yes', 'No'
+            ]
+        };
+
         this.booksDidLoad = false;
         this.startTimeoutErrorHandler();
-        this.searchStoreTitles = new FuzzySet([], true, PageDom.minGramSize,
-                                                PageDom.maxGramSize);
-        this.searchStoreAuthors = new FuzzySet([], true, PageDom.minGramSize,
-                                                PageDom.maxGramSize);
+        this.searchStoreTitles = new FuzzySet([], true, this.minGramSize,
+                                                this.maxGramSize);
+        this.searchStoreAuthors = new FuzzySet([], true, this.minGramSize,
+                                                this.maxGramSize);
         this.mCloseIcon = document.getElementsByClassName('m-close-icon')[0];
         this.modalContainer = document.getElementById('modal-container');
         this.modalContentDom = document.getElementById('modal-content');
@@ -230,8 +208,8 @@ class PageDom {
         this.filterTagList = document.getElementsByClassName('filter-list')[0];
         this.clearFilterText = document.getElementById('clear-filters');
         this.filterCheckboxPanes = {};
-        Object.keys(PageDom.filterCategories).forEach((category) => {
-            let filterClassName = 'filters-' + PageDom.camelToKebab(category);
+        Object.keys(this.filterCategories).forEach((category) => {
+            let filterClassName = 'filters-' + this.camelToKebab(category);
             let filterDom = document.getElementsByClassName(filterClassName)[0];
             let cbDom = filterDom.children[1];
             this.filterCheckboxPanes[category] = cbDom;
@@ -240,6 +218,27 @@ class PageDom {
         // window.bookJsonText should be loaded from a separate script
         this.setBooksFromJsonText(window.bookJsonText);
     }
+
+    get allTags() {
+        return Object.values(this.filterCategories).flat();
+    }
+
+    titleToKebab = (title) => {
+        let noAmpersand = title.replace('&', 'and');
+        let noDiacritic = noAmpersand.normalize('NFD')
+                                .replace(/[\u0300-\u036f]/g, "");
+        let noPunct = noDiacritic.replace(/[^\w\s]|_/g, "")
+                                 .replace(/\s+/g, " ");
+        return noPunct.toLowerCase().replaceAll(' ', '-');
+    }
+
+    camelToKebab = (str) => {
+        return str.split('').map((letter, idx) => {
+          return letter.toUpperCase() === letter
+           ? `${idx !== 0 ? '-' : ''}${letter.toLowerCase()}`
+           : letter;
+        }).join('');
+    };
 
     startTimeoutErrorHandler() {
         const backupUrl = 'https://hope-box.squarespace.com/s/Hope-in-a-Box-50.pdf';
@@ -250,7 +249,7 @@ class PageDom {
                 sorryMessage += `<a id="backup-link" href="${backupUrl}">non-interactive list of books here.</a>`;
                 this.gridContainer.innerHTML = sorryMessage;
             }
-        }, PageDom.LoadTimeoutMs);
+        }, this.LoadTimeoutMs);
     }
 
     setBooksFromJsonText(jsonText) {
@@ -306,7 +305,7 @@ class PageDom {
         Object.entries(this.filterCheckboxPanes).forEach((kv) => {
             let category = kv[0];
             let categoryCbPane = kv[1];
-            let filters = PageDom.filterCategories[category];
+            let filters = this.filterCategories[category];
             filters.forEach((filter) => {
                 let rowDom = document.createElement('div');
                 let cbDom = document.createElement('input');
@@ -319,7 +318,7 @@ class PageDom {
                     this.renderFilterTags();
                     this.runSearchOnGridItems();
                 });
-                let cbId = `checkbox-${PageDom.titleToKebab(filter)}`;
+                let cbId = `checkbox-${this.titleToKebab(filter)}`;
                 cbDom.id = cbId;
                 labelDom.classList.add('tag-text');
                 labelDom.innerText = filter;
@@ -341,7 +340,7 @@ class PageDom {
     }
 
     getCheckedFilterNamesFlat() {
-        let categoryNames = Object.keys(PageDom.filterCategories);
+        let categoryNames = Object.keys(this.filterCategories);
         let cbRowDoms = document.getElementsByClassName('checkbox-row');
         cbRowDoms = Array.from(cbRowDoms);
         let checkedCbRowDoms = cbRowDoms.filter(row => row.children[0].checked);
@@ -357,7 +356,7 @@ class PageDom {
             let checkedFilterNames = checkedRows.map(row => row.children[1].innerText);
             return checkedFilterNames
         });
-        let categoryNames = Object.keys(PageDom.filterCategories);
+        let categoryNames = Object.keys(this.filterCategories);
         let categoryNamesToCheckedFilters = {};
         categoryNames.forEach((name, idx) => {
             categoryNamesToCheckedFilters[name] = checkedFilterNamesPerCategory[idx];
@@ -413,7 +412,7 @@ class PageDom {
         let mSynopsis = document.getElementsByClassName('m-synopsis')[0];
         let mCurriculumBtn = document.getElementsByClassName('m-lesson-plan-btn')[0];
         mTitle.innerText = title;
-        mCover.src = `../assets/book-covers/${PageDom.titleToKebab(title)}.jpg`;
+        mCover.src = `../assets/book-covers/${this.titleToKebab(title)}.jpg`;
         mAuthor.innerText = book['Author']
         mSynopsisSource.href = book['Synopsis link'];
         mSynopsis.innerText = book['Synopsis'];
@@ -445,7 +444,7 @@ class PageDom {
         rlTextDiv.classList.add('rl-text');
         titleDiv.classList.add('item-title');
         authorDiv.classList.add('item-author');
-        coverImg.src = `../assets/book-covers/${PageDom.titleToKebab(title)}.jpg`;
+        coverImg.src = `../assets/book-covers/${this.titleToKebab(title)}.jpg`;
         coverImg.alt = `Cover for ${title}`;
         rlTextDiv.innerText = readingLevel.toLowerCase();
         titleDiv.innerText = title;
@@ -498,7 +497,7 @@ class PageDom {
         // grid items, whereas filtering renders only those grid items that
         // pass filtering.
         let query = this.searchBar.value;
-        if (query.length < PageDom.minGramSize) {
+        if (query.length < this.minGramSize) {
             this.gridItems.forEach((gridItem) => {
                 gridItem.classList.remove('hidden');
             });
