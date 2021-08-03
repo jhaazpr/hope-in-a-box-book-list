@@ -378,6 +378,7 @@ class PageDom {
             iconDom.src = '../assets/x-icon.svg';
             iconDom.alt = 'Delete tag icon';
             iconDom.classList.add('x-icon');
+            iconDom.classList.add('tag-x-icon');
             iconDom.addEventListener('click', (event) => {
                 this.removeFilter(filterName);
             });

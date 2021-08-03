@@ -129,7 +129,11 @@ body {
     margin-right: 10px;
     margin-bottom: 10px;
     float: left;
-    display: inline-block;
+    display: flex;
+}
+
+.tag-x-icon {
+    transform: translateY(7.5px);
 }
 
 .tag-text {
