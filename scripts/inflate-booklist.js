@@ -374,7 +374,7 @@ class PageDom {
             let iconDom = document.createElement('img');
             let textDom = document.createElement('div');
             tagDom.classList.add('filter-tag');
-            iconDom.src = '../assets/x-icon.png';
+            iconDom.src = '../assets/x-icon.svg';
             iconDom.alt = 'Delete tag icon';
             iconDom.classList.add('x-icon');
             iconDom.addEventListener('click', (event) => {
@@ -461,7 +461,7 @@ class PageDom {
             let heartImg = document.createElement('img');
             heartImg.classList.add('curriculum-icon-img');
             heartContainer.classList.add('curriculum-icon-container');
-            heartImg.src = '../assets/heart-icon.png';
+            heartImg.src = '../assets/heart-icon.svg';
             heartContainer.appendChild(heartImg);
             coverContainer.appendChild(heartContainer);
         }
@@ -590,17 +590,17 @@ class PageDom {
                 let icon = filterTop.children[0];
                 if (filterTop.dataset.toggled === 'true') {
                     filterTop.dataset.toggled = false;
-                    icon.src = '../assets/down-icon.png';
+                    icon.src = '../assets/down-icon.svg';
                     let thisCbPane = icon.parentElement.nextElementSibling;
                     thisCbPane.classList.add('hidden');
                 }
                 else {
                     collapseIcons.forEach(icon => {
                         filterTop.dataset.toggled = false;
-                        icon.src = '../assets/down-icon.png';
+                        icon.src = '../assets/down-icon.svg';
                     });
                     filterTop.dataset.toggled = true;
-                    icon.src = '../assets/up-icon.png';
+                    icon.src = '../assets/up-icon.svg';
                     let allCbPanes = document.getElementsByClassName('checkbox-pane');
                     allCbPanes = Array.from(allCbPanes);
                     allCbPanes.forEach(pane => pane.classList.add('hidden'));

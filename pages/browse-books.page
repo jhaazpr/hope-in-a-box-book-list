@@ -365,7 +365,7 @@ input[type='checkbox'] {
 <div id="modal-container" class="hidden">
     <div id="modal-content">
         <div class="m-close-row">
-            <img class="m-close-icon" src="../assets/x-icon.png" alt="lose modal">
+            <img class="m-close-icon" src="../assets/x-icon.svg" alt="close modal">
         </div>
         <div class="m-cols">
             <div class="m-cover-col">
@@ -418,7 +418,7 @@ input[type='checkbox'] {
     <div class="menu-pane">
         <input name="search" id="search-bar" type="text" title="Search for book titles and authors" placeholder="Search"/>
         <div class="curriculum-note">
-            <img class="heart-icon" src="../assets/heart-icon.png" alt="heart icon">
+            <img class="heart-icon" src="../assets/heart-icon.svg" alt="heart icon">
             <div class="light-text">Curriculum is available</div>
         </div>
         <div class="filter-tag-pane">
@@ -436,7 +436,7 @@ input[type='checkbox'] {
         </div>
         <div class="filter-category filters-reading-level">
             <div class="filter-section-top" data-toggled="false">
-                <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
+                <img class="collapse-icon" src="../assets/down-icon.svg" alt="Collapse menu icon">
                 <div class="filter-section-top-text">reading level</div>
             </div>
             <div class="checkbox-pane hidden">
@@ -444,35 +444,35 @@ input[type='checkbox'] {
         </div>
         <div class="filter-category filters-representation">
             <div class="filter-section-top" data-toggled="false">
-                <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
+                <img class="collapse-icon" src="../assets/down-icon.svg" alt="Collapse menu icon">
                 <div class="filter-section-top-text">representation</div>
             </div>
             <div class="checkbox-pane hidden"></div>
         </div>
         <div class="filter-category filters-themes" data-toggled="false">
             <div class="filter-section-top">
-                <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
+                <img class="collapse-icon" src="../assets/down-icon.svg" alt="Collapse menu icon">
                 <div class="filter-section-top-text">themes</div>
             </div>
             <div class="checkbox-pane hidden"></div>
         </div>
         <div class="filter-category filters-format" data-toggled="false">
             <div class="filter-section-top">
-                <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
+                <img class="collapse-icon" src="../assets/down-icon.svg" alt="Collapse menu icon">
                 <div class="filter-section-top-text">format</div>
             </div>
             <div class="checkbox-pane hidden"></div>
         </div>
         <div class="filter-category filters-included-in" data-toggled="false">
             <div class="filter-section-top">
-                <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
+                <img class="collapse-icon" src="../assets/down-icon.svg" alt="Collapse menu icon">
                 <div class="filter-section-top-text">included in</div>
             </div>
             <div class="checkbox-pane hidden"></div>
         </div>
         <div class="filter-category filters-curriculum-available" data-toggled="false">
             <div class="filter-section-top">
-                <img class="collapse-icon" src="../assets/down-icon.png" alt="Collapse menu icon">
+                <img class="collapse-icon" src="../assets/down-icon.svg" alt="Collapse menu icon">
                 <div class="filter-section-top-text">curriculum available</div>
             </div>
             <div class="checkbox-pane hidden"></div>
