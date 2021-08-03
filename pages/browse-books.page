@@ -48,18 +48,18 @@ body {
 .container {
     position: relative;
     width: 100%;
+    display: flex;
 }
 
 .menu-pane {
-    float: left;
-    width: 20%;
+    width: 250px;
     height: 100%;
 }
 
 #search-bar {
     height: 40px;
-    padding-left: 10%;
-    width: 80%;
+    padding-left: 20px;
+    width: 175px;
     margin-bottom: 10px;
 }
 
@@ -180,18 +180,18 @@ input[type='checkbox'] {
 }
 
 .results-pane {
-    float: right;
-    width: 80%;
+    width: 100%;
     height: 100%;
 }
 
 .grid-container {
     width: 90%;
     margin: auto;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .grid-item {
-    float: left;
     margin-right: 20px;
     margin-bottom: 20px;
     cursor: pointer;
@@ -363,6 +363,39 @@ input[type='checkbox'] {
 .m-tag-text {
     font-weight: lighter;
     display: inline-block;
+}
+
+@media screen and (max-width: 500px) {
+    .container {
+        flex-direction: column;
+    }
+
+    #search-bar {
+        width: 90%;
+    }
+
+    .menu-pane {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .grid-item {
+        max-width: none;
+        width: 100%;
+        height: 100%;
+    }
+
+    .cover-container {
+        display: none;
+    }
+
+    .m-cols {
+        flex-direction: column;
+    }
+
+    .m-cover-col {
+        margin-bottom: 25px;
+    }
 }
 
 </style>
