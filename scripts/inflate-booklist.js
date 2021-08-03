@@ -244,7 +244,7 @@ class PageDom {
     startTimeoutErrorHandler() {
         const backupUrl = 'https://hope-box.squarespace.com/s/Hope-in-a-Box-50.pdf';
         setTimeout(() => {
-            if (!this.booksDidLoad) {
+            if (document.getElementsByClassName('grid-item').length === 0) {
                 let sorryMessage = 'Unfortunately, we couldn\'t load the interactive list of books.\n';
                 sorryMessage += 'In the meantime, please check out the ';
                 sorryMessage += `<a id="backup-link" href="${backupUrl}">non-interactive list of books here.</a>`;
@@ -260,7 +260,6 @@ class PageDom {
         this.inflateFilters();
         this.inflateGrid();
         this.attachUIHandlers();
-        this.booksDidLoad = true;
     }
 
     getFilteredBooks() {
