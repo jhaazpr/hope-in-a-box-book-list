@@ -330,6 +330,7 @@ class PageDom {
                 rowDom.appendChild(labelDom);
                 labelDom.appendChild(quantityDom);
                 categoryCbPane.appendChild(rowDom);
+                rowDom.dataset.filter = filter;
             });
         });
     }
@@ -353,7 +354,7 @@ class PageDom {
         let checkedFilterNamesPerCategory = filterCategoryDoms.map((fcDom) => {
             let rows = Array.from(fcDom.children[1].children);
             let checkedRows = rows.filter(row => row.children[0].checked);
-            let checkedFilterNames = checkedRows.map(row => row.children[1].innerText);
+            let checkedFilterNames = checkedRows.map(row => row.dataset.filter);
             return checkedFilterNames
         });
         let categoryNames = Object.keys(this.filterCategories);
