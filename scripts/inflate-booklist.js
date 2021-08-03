@@ -345,7 +345,7 @@ class PageDom {
         let cbRowDoms = document.getElementsByClassName('checkbox-row');
         cbRowDoms = Array.from(cbRowDoms);
         let checkedCbRowDoms = cbRowDoms.filter(row => row.children[0].checked);
-        return checkedCbRowDoms.map(row => row.children[1].innerText);
+        return checkedCbRowDoms.map(row => row.dataset.filter);
     }
 
     getCheckedFilterNamesByCategory() {
