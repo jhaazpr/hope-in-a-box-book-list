@@ -277,7 +277,7 @@ input[type='checkbox'] {
     padding: 20px 50px 50px 50px;
     font-size: 12px;
     border: 1px solid white;
-    height: 70%;
+    height: 75%;
     width: 50%;
     margin: 5% auto 5% auto;
     overflow-y: scroll;
@@ -387,6 +387,10 @@ input[type='checkbox'] {
 
     .cover-container {
         display: none;
+    }
+
+    #modal-content {
+        width: 70%;
     }
 
     .m-cols {
