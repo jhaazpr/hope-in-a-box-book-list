@@ -212,7 +212,11 @@ class PageDom {
     static minGramSize = 4;
     static maxGramSize = 7;
 
+    static loadTimeoutMs = 5000;
+
     constructor() {
+        this.booksDidLoad = false;
+        this.startTimeoutErrorHandler();
         this.searchStoreTitles = new FuzzySet([], true, PageDom.minGramSize,
                                                 PageDom.maxGramSize);
         this.searchStoreAuthors = new FuzzySet([], true, PageDom.minGramSize,
@@ -237,15 +241,26 @@ class PageDom {
         this.setBooksFromJsonText(window.bookJsonText);
     }
 
+    startTimeoutErrorHandler() {
+        const backupUrl = 'https://hope-box.squarespace.com/s/Hope-in-a-Box-50.pdf';
+        setTimeout(() => {
+            if (!this.booksDidLoad) {
+                let sorryMessage = 'Unfortunately, we couldn\'t load the interactive list of books.\n';
+                sorryMessage += 'In the meantime, please check out the ';
+                sorryMessage += `<a id="backup-link" href="${backupUrl}">non-interactive list of books here.</a>`;
+                this.gridContainer.innerHTML = sorryMessage;
+            }
+        }, PageDom.LoadTimeoutMs);
+    }
+
     setBooksFromJsonText(jsonText) {
         this.table.books = JSON.parse(jsonText)['books'];
-        // FIXME: we can never shorten book titles if we use html text
-        // as identifiers
         this.table.applyTitleShorteningToBooks();
         this.table.sortBooksByLevelThenTitle();
         this.inflateFilters();
         this.inflateGrid();
         this.attachUIHandlers();
+        this.booksDidLoad = true;
     }
 
     getFilteredBooks() {

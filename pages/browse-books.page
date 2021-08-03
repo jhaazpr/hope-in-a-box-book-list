@@ -19,6 +19,10 @@ body {
     font-style: italic;
 }
 
+#backup-link {
+    text-decoration: underline;
+}
+
 .no-scroll {
     overflow: hidden;
 }
