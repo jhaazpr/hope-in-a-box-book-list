@@ -393,8 +393,7 @@ class PageDom {
     removeFilter(filterName) {
         let cbRowDoms = document.getElementsByClassName('checkbox-row');
         let filterRow = Array.from(cbRowDoms).find(rowDom => {
-            let filterTextDom = rowDom.children[1];
-            return filterTextDom.innerText === filterName;
+            return rowDom.dataset.filter === filterName;
         });
         if (filterRow) {
             filterRow.children[0].checked = false;
