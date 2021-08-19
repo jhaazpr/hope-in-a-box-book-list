@@ -17,6 +17,8 @@ body {
 
 #modal-content a {
     font-style: italic;
+    padding-bottom: 2px;
+    border-bottom: 1px dotted #1b1bf7;
 }
 
 #backup-link {
@@ -434,7 +436,7 @@ input[type='checkbox'] {
                     <a class="" href="https://hope-box.squarespace.com/take-action" target="_blank" rel="noopener noreferrer">Click here</a> for lesson plans
                 </div>
                 <div class="m-text">
-                Hope in a Box has developed the nation’s largest library of LGBTQ-inclusive curriculum. Our guides are written by and for educators, tied to Common Core State Standards, and adapted for in-person and virtual learning. We want your feedback -- let us know which books to cover next!
+                Hope in a Box provides educators with curated boxes of books with LGBTQ+ characters, distinctive curricula for these books, and training and mentorship on how to build an inclusive classroom. Educators can apply to join the program and access our full curriculum library by clicking the link above. For a sample curriculum guide for Fun Home by Alison Bechdel, please click <a href="http://www.hopeinabox.org/funhome">here</a>.
                 </div>
                 <div class="m-header title-font">
                     <a class="" href="https://www.strandbooks.com/" target="_blank" rel="noopener noreferrer">Click here</a> to buy the book
@@ -449,10 +451,10 @@ input[type='checkbox'] {
 
 <div class="preamble">
     <div class="preamble-title title-font">
-        Our ultimate list of LGBTQ-inclusive books
+        One hundred LGBTQ-inclusive books for all ages
     </div>
     <div class="preamble-subtitle">
-    Hope in a Box worked with expert teachers and professors from across the country to curate a list of our favorite LGBTQ-inclusive books. This list includes a diverse array of stories, formats, time periods, identities, and reading levels.
+    We worked with dozens of teachers, professors, and students to curate a list of our favorite LGBTQ-inclusive books. This list includes a diverse array of stories, formats, time periods, identities, and reading levels.
     </div>
 </div>
 <div class="container">
@@ -507,7 +509,7 @@ input[type='checkbox'] {
         <div class="filter-category filters-included-in" data-toggled="false">
             <div class="filter-section-top">
                 <img class="collapse-icon" src="../assets/down-icon.svg" alt="Collapse menu icon">
-                <div class="filter-section-top-text">included in</div>
+                <div class="filter-section-top-text">our book boxes</div>
             </div>
             <div class="checkbox-pane hidden"></div>
         </div>
