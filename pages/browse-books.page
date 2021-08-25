@@ -35,6 +35,7 @@ body {
 
 .preamble {
     margin-bottom: 48px;
+    margin-top: -32px;
     text-align: center;
 }
 
