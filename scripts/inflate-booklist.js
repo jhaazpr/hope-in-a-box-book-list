@@ -207,6 +207,7 @@ class PageDom {
         this.searchBar = document.getElementById('search-bar');
         this.filterTagList = document.getElementsByClassName('filter-list')[0];
         this.clearFilterText = document.getElementById('clear-filters');
+        this.numBooksDisplayedText = document.getElementById('num-books-displayed');
         this.filterCheckboxPanes = {};
         Object.keys(this.filterCategories).forEach((category) => {
             let filterClassName = 'filters-' + this.camelToKebab(category);
@@ -299,6 +300,7 @@ class PageDom {
             this.addGridItem(title, author, readingLevel, curriculumAvailable);
         });
         this.doPostFilterAnimation();
+        this.updateNumBooksDisplayedText();
         this.attachGridItemHandlers();
     }
 
@@ -527,6 +529,7 @@ class PageDom {
         let newNumHiddens = document.getElementsByClassName('hidden').length;
         if (numHiddensPreSearch !== newNumHiddens) {
             this.doPostFilterAnimation();
+            this.updateNumBooksDisplayedText();
         }
     }
 
@@ -544,6 +547,14 @@ class PageDom {
                 this.inflateModalForBookTitle(title);
             });
         });
+    }
+
+    updateNumBooksDisplayedText() {
+        let gridItems = Array.from(document.getElementsByClassName('grid-item'));
+        let nonHiddenItems = gridItems.filter((item) => {
+            return !item.classList.contains('hidden');
+        });
+        this.numBooksDisplayedText.innerText = nonHiddenItems.length;
     }
 
     doPostFilterAnimation() {
