@@ -21,6 +21,11 @@ body {
     border-bottom: 1px dotted #1b1bf7;
 }
 
+/* Do not do underlining for the links for curriculum buttons. */
+#modal-content .m-title-row > a {
+    border-bottom: medium none;
+}
+
 #backup-link {
     text-decoration: underline;
 }
