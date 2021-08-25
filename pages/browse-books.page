@@ -475,7 +475,7 @@ input[type='checkbox'] {
     <div class="menu-pane">
         <input name="search" id="search-bar" type="text" title="Search for book titles and authors" placeholder="Search"/>
         <div class="curriculum-note">
-            <img class="heart-icon" src="../assets/heart-icon.svg" alt="heart icon">
+            <img class="heart-icon" src="../assets/curriculum-icon.png" alt="curriculum available icon">
             <div class="light-text">Curriculum is available</div>
         </div>
         <div class="number-displayed-pane light-text">

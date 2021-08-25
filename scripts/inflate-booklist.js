@@ -465,7 +465,7 @@ class PageDom {
             let heartImg = document.createElement('img');
             heartImg.classList.add('curriculum-icon-img');
             heartContainer.classList.add('curriculum-icon-container');
-            heartImg.src = '../assets/heart-icon.svg';
+            heartImg.src = '../assets/curriculum-icon.png';
             heartContainer.appendChild(heartImg);
             coverContainer.appendChild(heartContainer);
         }
