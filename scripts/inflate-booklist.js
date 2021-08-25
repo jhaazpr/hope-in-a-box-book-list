@@ -215,6 +215,7 @@ class PageDom {
             let cbDom = filterDom.children[1];
             this.filterCheckboxPanes[category] = cbDom;
         });
+        this.hackAdjustMainTitleMargin();
         this.table = new BookTable(this);
         // window.bookJsonText should be loaded from a separate script
         this.setBooksFromJsonText(window.bookJsonText);
@@ -336,6 +337,16 @@ class PageDom {
                 rowDom.dataset.filter = filter;
             });
         });
+    }
+
+    hackAdjustMainTitleMargin() {
+        /* We need to access the main title that is completely outside the
+         * scope of any code in the .page file. The hack here assumes that
+         * the main header title from Squarespace is the sole h1 tag on
+         * the page. We have intentionally set the title's margin to be too
+         * big by adding extra whitespace, and then we reduce it here. */
+        let mainTitle = document.getElementsByTagName('h1')[0];
+        mainTitle.style.setProperty('margin-bottom', '-12px');
     }
 
     countItemsWithFilter(filterName) {
