@@ -417,7 +417,7 @@ input[type='checkbox'] {
             <div class="m-book-info-col">
                 <div class="m-title-row">
                     <div class="m-title title-font">Title</div>
-                    <a href="https://hope-box.squarespace.com/take-action" target="_blank" rel="noopener noreferrer">
+                    <a href="https://hopeinabox.org/take-action" target="_blank" rel="noopener noreferrer">
                         <button class="m-lesson-plan-btn">click here for <b>lesson plans</b></button>
                     </a>
                 </div>
@@ -430,10 +430,10 @@ input[type='checkbox'] {
                 <div class="m-synopsis m-text">
                 </div>
                 <div class="m-synopsis-source-container">
-                    (<a class="m-synopsis-source" href="" target="_blank" rel="noopener noreferrer">Source</a>)
+                    <a class="m-synopsis-source" href="" target="_blank" rel="noopener noreferrer">(Source)</a>
                 </div>
                 <div class="m-header title-font">
-                    <a class="" href="https://hope-box.squarespace.com/take-action" target="_blank" rel="noopener noreferrer">Click here</a> for lesson plans
+                    <a class="" href="https://hopeinabox.org/take-action" target="_blank" rel="noopener noreferrer">Click here</a> for lesson plans
                 </div>
                 <div class="m-text">
                 Hope in a Box provides educators with curated boxes of books with LGBTQ+ characters, distinctive curricula for these books, and training and mentorship on how to build an inclusive classroom. Educators can apply to join the program and access our full curriculum library by clicking the link above. For a sample curriculum guide for Fun Home by Alison Bechdel, please click <a href="http://www.hopeinabox.org/funhome">here</a>.
