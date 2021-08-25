@@ -249,6 +249,10 @@ input[type='checkbox'] {
     filter: drop-shadow(2px 2px 2px #aaa);
 }
 
+.canted {
+    transform: rotateY(85deg);
+}
+
 .curriculum-icon-container {
     position: absolute;
     top: -10px;

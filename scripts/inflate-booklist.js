@@ -298,6 +298,7 @@ class PageDom {
             let curriculumAvailable = !!book['Yes'];
             this.addGridItem(title, author, readingLevel, curriculumAvailable);
         });
+        this.doPostFilterAnimation();
         this.attachGridItemHandlers();
     }
 
@@ -497,6 +498,7 @@ class PageDom {
         // NOTE: searching works by applying display: hidden to non-applicable
         // grid items, whereas filtering renders only those grid items that
         // pass filtering.
+        let numHiddensPreSearch = document.getElementsByClassName('hidden').length;
         let query = this.searchBar.value;
         if (query.length < this.minGramSize) {
             this.gridItems.forEach((gridItem) => {
@@ -522,6 +524,10 @@ class PageDom {
                 }
             });
         }
+        let newNumHiddens = document.getElementsByClassName('hidden').length;
+        if (numHiddensPreSearch !== newNumHiddens) {
+            this.doPostFilterAnimation();
+        }
     }
 
     attachGridItemHandlers() {
@@ -537,6 +543,18 @@ class PageDom {
             gridItem.addEventListener('click', (event) => {
                 this.inflateModalForBookTitle(title);
             });
+        });
+    }
+
+    doPostFilterAnimation() {
+        let unscaleTimoutMs = 100;
+        let coverContainers = document.getElementsByClassName('cover-container');
+        coverContainers = Array.from(coverContainers);
+        coverContainers.forEach((coverDom) => {
+            coverDom.classList.add('canted');
+            setTimeout(() => {
+                coverDom.classList.remove('canted');
+            }, unscaleTimoutMs);
         });
     }
 
