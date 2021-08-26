@@ -439,7 +439,8 @@ class PageDom {
         }
         this.inflateTagPaneDomForTitle(mTagPane, title);
         this.modalContainer.classList.remove('hidden');
-        document.getElementsByTagName('body')[0].classList.add('no-scroll');
+        this.modalContainer.style.setProperty('top', window.pageYOffset);
+        document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
     }
 
     addGridItem(title, author, readingLevel, curriculumAvailable) {
@@ -584,7 +585,7 @@ class PageDom {
     attachUIHandlers() {
         const hideModal = () => {
             this.modalContainer.classList.add('hidden');
-            document.getElementsByTagName('body')[0].classList.remove('no-scroll');
+            document.getElementsByTagName('body')[0].classList.remove('overflow-hidden');
         };
         // Hide modal on clicking close icon.
         this.mCloseIcon.addEventListener('click', (event) => {

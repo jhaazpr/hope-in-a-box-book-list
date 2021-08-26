@@ -30,7 +30,7 @@ body {
     text-decoration: underline;
 }
 
-.no-scroll {
+.overflow-hidden {
     overflow: hidden;
 }
 
