@@ -401,6 +401,8 @@ input[type='checkbox'] {
     .menu-pane {
         width: 100%;
         margin-bottom: 20px;
+        /* Override position: sticky; in the mobile view. */
+        position: static;
     }
 
     .grid-item {
