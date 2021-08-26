@@ -419,6 +419,7 @@ class PageDom {
 
     inflateModalForBookTitle(title) {
         let book = this.table.getBookWithTitle(title);
+        let mContent = document.getElementById('modal-content');
         let mTitle = document.getElementsByClassName('m-title')[0];
         let mCover = document.getElementsByClassName('m-cover')[0];
         let mAuthor = document.getElementsByClassName('m-author')[0];
@@ -440,6 +441,7 @@ class PageDom {
         this.inflateTagPaneDomForTitle(mTagPane, title);
         this.modalContainer.classList.remove('hidden');
         this.modalContainer.style.setProperty('top', window.pageYOffset);
+        mContent.scrollTop = 0;
         document.getElementsByTagName('body')[0].classList.add('overflow-hidden');
     }
 
