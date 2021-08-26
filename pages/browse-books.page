@@ -311,6 +311,8 @@ input[type='checkbox'] {
 
 .m-close-row {
     margin-bottom: 30px;
+    position: sticky;
+    top: 0px;
 }
 
 .m-cols {
@@ -323,6 +325,7 @@ input[type='checkbox'] {
     height: 20px;
     width: 20px;
     cursor: pointer;
+    background-color: #eeeeee;
 }
 
 .m-lesson-plan-btn {
@@ -343,6 +346,10 @@ input[type='checkbox'] {
 
 .m-cover-col {
     margin-right: 50px;
+}
+
+.m-book-info-col {
+    padding-right: 24px;
 }
 
 .m-text {
