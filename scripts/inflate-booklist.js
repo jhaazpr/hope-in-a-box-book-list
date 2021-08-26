@@ -569,14 +569,15 @@ class PageDom {
     }
 
     doPostFilterAnimation() {
-        let unscaleTimoutMs = 100;
+        let unscaleTimoutMs = 50;
+        let offsetMs = 20;
         let coverContainers = document.getElementsByClassName('cover-container');
         coverContainers = Array.from(coverContainers);
-        coverContainers.forEach((coverDom) => {
+        coverContainers.forEach((coverDom, coverIdx) => {
             coverDom.classList.add('canted');
             setTimeout(() => {
                 coverDom.classList.remove('canted');
-            }, unscaleTimoutMs);
+            }, unscaleTimoutMs + coverIdx * offsetMs);
         });
     }
 
