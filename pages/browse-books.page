@@ -62,6 +62,8 @@ body {
 .menu-pane {
     width: 250px;
     height: 100%;
+    position: sticky;
+    top: 24px;
 }
 
 #search-bar {
