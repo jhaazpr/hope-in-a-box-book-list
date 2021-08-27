@@ -672,5 +672,8 @@ let main = () => {
     window.pageDom = new PageDom();
 };
 
-window.addEventListener('load', main, false);
+/* Use this function as an initializer, rather than window.addEventListener
+ * because Squarespace won't actually load the page as-is but will rather
+ * do an AJAX call. So, only Squarespace.initialize will fire correctly. */
+window.Squarespace.onInitialize(Y, main);
 
