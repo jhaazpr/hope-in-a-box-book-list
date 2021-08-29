@@ -6,7 +6,18 @@ This is a custom Squarespace infrastructure for [Hope in a Box's website](https:
 
 Hope in a Box is a non-profit dedicated to helping teachers at rural and/or low-income schools include LGBTQ+ books in their classroom.
 This infrastructure helps teachers browse Hope in a Box's curated list of 100 inclusive books with an [interactive page for searching and filtering books](https://hopeinabox.org/books)).
-The structure of this repository adhere's to Squarespace's template format, [which is specified here](https://developers.squarespace.com/template-overview).
+We do this by generating a static HTML page using pre-scraped data, without the use of any database or backend.
+
+## Repository Structure
+
+The structure of this repository adheres to Squarespace's template format, [which is specified here](https://developers.squarespace.com/template-overview).
+The important files are:
+
+- `pages/browse-books.page`: the HTML and CSS for the book list page.
+- `scripts/booklist-data.js`: a pre-generated JSON file masquerading as a JS file that contains data for all books.
+- `scripts/inflate-booklist.js`: a script that ingests data from `booklist.js` and inflates the page.
+
+The book list page's search functionality uses [fuzzyset](https://github.com/Glench/fuzzyset.js) by Glen Chiacchieri.
 
 ## Instructions for Pushing to Squarespace
 
