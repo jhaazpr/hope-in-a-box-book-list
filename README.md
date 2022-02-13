@@ -26,6 +26,6 @@ The book list page's search functionality uses [fuzzyset](https://github.com/Gle
 
 ## Updating the Book List Data
 
-1. Run a script to scrape book data from a database or a spreadsheet into the format as specified in `scripts/booklist-data.js`. For security reasons, we have not released that script here. Please get in touch if you'd like more information.
+1. Run `node fetch-booklist-data.mjs` to scrape book data from a database or a spreadsheet into the format as specified in `scripts/booklist-data.js`. This script uses private keys that are not included in the repository. If you would like to use the fetching script with your own spreadsheet, you'll need to create a developer key for the Google Sheets API and [follow the endpoint here](https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets.values/get). If you would like to use our data, please get in touch.
 2. Ensure that `assets/book-covers/` contains the covers of every book, formatted in kebab case.
 3. Push the repository to the Squarespace remote.
