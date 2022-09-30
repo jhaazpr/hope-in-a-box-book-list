@@ -203,7 +203,6 @@ class PageDom {
         this.modalContainer = document.getElementById('modal-container');
         this.modalContentDom = document.getElementById('modal-content');
         this.gridContainer = document.getElementsByClassName('grid-container')[0];
-        this.gridItems = document.getElementsByClassName('grid-item');
         this.searchBar = document.getElementById('search-bar');
         this.filterTagList = document.getElementsByClassName('filter-list')[0];
         this.clearFilterText = document.getElementById('clear-filters');
@@ -219,6 +218,10 @@ class PageDom {
         this.table = new BookTable(this);
         // window.bookJsonText should be loaded from a separate script
         this.setBooksFromJsonText(window.bookJsonText);
+    }
+
+    get gridItems() {
+        return Array.from(document.getElementsByClassName('grid-item'));
     }
 
     get allTags() {
