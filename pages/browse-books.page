@@ -1,6 +1,6 @@
 <squarespace:script src="fuzzyset/fuzzyset.js"/>
-<squarespace:script id="inflate-script" src="inflate-booklist.js"/>
 <squarespace:script id="book-data" src="booklist-data.js"/>
+<squarespace:script id="inflate-script" src="inflate-booklist.js"/>
 
 <!--
     FIXME: for now, do styling inline with HTML. However, this is not a good
